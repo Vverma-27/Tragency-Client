@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Image1 from "../images/image1.jpg";
 import Sidebar from "./sidebar";
+import TopSearches from "./topSearches";
 import {
   FaComment,
   FaCommentMedical,
@@ -51,6 +52,7 @@ const Search = () => {
           Wow Look at these beautiful pictures from Ladakh
         </p>
       </section>
+      <TopSearches />
     </main>
   );
 };

@@ -1,0 +1,40 @@
+#container {
+    width: 15vw;
+    position: fixed;
+    top: 14vh;
+    right: 0.6vw;
+    border-radius: 1.5rem;
+    background: #eaf4fe;
+    padding: 2vh 0;
+    border: 1px solid #000;
+}
+
+#heading {
+    background: #bbddfe;
+    padding: 0.4vh 3vw;
+    width: 45%;
+    margin: 0 auto;
+    border-radius: 1rem;
+    margin-bottom: 5vh;
+}
+
+.location {
+    font-size: 1.4rem;
+    font-weight: 400;
+    border-top: 1px solid #000;
+    padding: 1.3vh 3vw;
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.location:last-child {
+    border-bottom: 1px solid #000;
+}
+
+.location svg {
+    position: absolute;
+    top: 50%;
+    right: 0.5vw;
+    transform: translateY(-50%);
+}
