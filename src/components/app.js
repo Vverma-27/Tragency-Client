@@ -11,7 +11,7 @@ const App = () => {
       <Router>
         <Header />
         <Switch>
-          <Route path="/results/:query" exact component={Search} />
+          <Route path={`/results`} exact component={Search} />
         </Switch>
         <Footer />
       </Router>

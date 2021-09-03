@@ -23,9 +23,12 @@ body {
     width: 14rem;
 }
 
-a {
-    border: none;
+a,
+a:hover,
+a:focus,
+a:active {
     text-decoration: none;
+    color: inherit;
 }
 
 .heading_main {
@@ -84,11 +87,11 @@ a {
     margin: -2vh 1vw;
 }
 
-.image-post {
+.post {
     margin-top: 2vh;
 }
 
-.post-image {
+.post-media {
     width: 100%;
     border-radius: 1rem;
 }
@@ -101,4 +104,5 @@ a {
 
 .blue {
     color: #007eff !important;
+    font-weight: 800;
 }

@@ -1,6 +1,6 @@
 #container {
     width: 15vw;
-    position: fixed;
+    position: absolute;
     top: 14vh;
     right: 0.6vw;
     border-radius: 1.5rem;
