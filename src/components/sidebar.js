@@ -6,17 +6,19 @@ import {
   FaTh,
   FaVideo,
 } from "react-icons/fa";
-import { useHistory } from "react-router-dom";
+import { useHistory, useRouteMatch } from "react-router-dom";
 import useQuery from "./useQuery";
 import Image1 from "../images/image1.jpg";
 import styles from "../styles/Side.module.css";
 
 const Sidebar = () => {
   const query = useQuery();
-  const q = query.get("query");
+  const { url } = useRouteMatch();
+  const q = !query.get("query") ? "Ladakh" : query.get("query");
   const t = query.get("type");
   const history = useHistory();
-  const active = (string) => (t.toLowerCase() === string ? "active" : "");
+  const active = (string) =>
+    t ? (t.toLowerCase() === string ? "active" : "") : "";
   const handleClick = (url) => history.push(url);
   return (
     <aside id={styles.sidebar}>
@@ -52,12 +54,19 @@ const Sidebar = () => {
           <FaPhotoVideo /> Vlogs
         </section>
       </section>
-      <section className={styles.parent}>
-        <section class={styles.option}>
+      <section
+        className={`${styles.parent} ${
+          styles[url === "/post" ? "active" : ""]
+        }`}
+        onClick={() => handleClick(`/post`)}
+      >
+        <section
+          class={`${styles.option} ${styles[url === "/post" ? "active" : ""]}`}
+        >
           <FaVideo /> Post Content
         </section>
       </section>
-      <section className={styles.parent}>
+      <section className={styles.parent} onClick={() => handleClick(`/market`)}>
         <section class={styles.option}>
           <FaShoppingCart /> Marketplace
         </section>

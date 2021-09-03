@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Header from "./header";
 import Footer from "./footer";
 import Search from "./searchResults";
+import TopSearches from "./topSearches";
+import PostContent from "./postContent";
 import "../styles/global.css";
 
 const App = () => {
@@ -10,9 +12,13 @@ const App = () => {
     <section>
       <Router>
         <Header />
-        <Switch>
-          <Route path={`/results`} exact component={Search} />
-        </Switch>
+        <main class="main">
+          <Switch>
+            <Route path={`/results`} exact component={Search} />
+            <Route path={`/post`} exact component={PostContent} />
+          </Switch>
+          <TopSearches />
+        </main>
         <Footer />
       </Router>
     </section>

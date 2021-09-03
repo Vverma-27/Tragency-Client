@@ -1,9 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Image1 from "../images/image1.jpg";
-import Sidebar from "./sidebar";
-import TopSearches from "./topSearches";
 import video from "../videos/Video.mp4";
+import Sidebar from "./sidebar";
 import {
   FaComment,
   FaCommentMedical,
@@ -63,17 +62,17 @@ const Search = () => {
           />
         );
     }
-    const renderedCaption = () => {
-      switch (t) {
-        case "images":
-          return "Wow Look at these beautiful pictures from Ladakh";
-        case "vlogs":
-          return "Look at my beutiful vlog from ladakh";
-      }
-    };
+  };
+  const renderedCaption = () => {
+    switch (t) {
+      case "images":
+        return "Wow Look at these beautiful pictures from Ladakh";
+      case "vlogs":
+        return "Look at my beutiful vlog from ladakh";
+    }
   };
   return (
-    <main class="main">
+    <>
       <Sidebar />
       <section class="container">
         <p class="heading_main" style={{ textTransform: "capitalize" }}>
@@ -116,10 +115,9 @@ const Search = () => {
             </Link>
           </p>
         </section>
-        <p className="sub-headings"></p>
+        <p className="sub-headings">{renderedCaption()}</p>
       </section>
-      <TopSearches />
-    </main>
+    </>
   );
 };
 

@@ -1,20 +1,17 @@
 import React from "react";
 import { FaSearch, FaSignOutAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import Logo from "../images/Logo.png";
 import styles from "../styles/Header.module.css";
+import SearchBar from "./searchBar";
 
 const Header = () => {
   return (
     <header id={styles.header}>
-      <img src={Logo} alt="Logo Of Tragency" className="logo" />
-      <form id={styles.searchBar}>
-        <input
-          type="text"
-          id={styles.search}
-          placeholder="Search For Content"
-        />
-        <FaSearch />
-      </form>
+      <Link to="/">
+        <img src={Logo} alt="Logo Of Tragency" className="logo" />
+      </Link>
+      <SearchBar />
       <FaSignOutAlt />
     </header>
   );
