@@ -23,7 +23,7 @@ const SearchBar = () => {
         value={term}
         onChange={(e) => setTerm(e.target.value)}
       />
-      <button type="submit" class={styles.submit}>
+      <button class={styles.submit}>
         <FaSearch />
       </button>
     </form>
