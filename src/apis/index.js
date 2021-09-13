@@ -1,8 +1,8 @@
 import axios from "axios";
 
 export const auth = axios.create({
-  baseURL: "/auth",
+  baseURL: "/api/auth",
 });
 export const postsRoute = axios.create({
-  baseURL: "/post",
+  baseURL: "/api/post",
 });

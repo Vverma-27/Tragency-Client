@@ -119,9 +119,6 @@ const App = ({ loadUser, isAuthenticated }) => {
               </>
             )}
           />
-          <Route path="*">
-            <Redirect to="/feed" />
-          </Route>
         </Switch>
       </Router>
     </section>
