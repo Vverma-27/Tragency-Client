@@ -45,7 +45,7 @@ const Feed = ({ getPosts, posts }) => {
             Have Something on Your mind
           </p>
           <a
-            href="mailto:@vihaan.verma@tragency.in"
+            href="mailto:vihaan.verma@tragency.in"
             className="sub-heading"
             style={{
               background: " #000",

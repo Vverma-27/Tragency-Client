@@ -41,7 +41,7 @@ const Search = ({ getPosts, posts }) => {
             Showing {t} for:
           </p>
           <a
-            href="mailto:@vihaan.verma@tragency.in"
+            href="mailto:vihaan.verma@tragency.in"
             className="sub-heading"
             style={{
               background: " #000",
