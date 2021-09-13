@@ -134,7 +134,8 @@ const Post = ({ t, post }) => {
             style={{
               border: "1px solid black",
               borderRadius: "0.3rem",
-              width: "100%",
+              width: "95%",
+              height: "10vh",
             }}
           ></textarea>
           <button

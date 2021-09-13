@@ -5,7 +5,6 @@ import {
   FaInstagram,
   FaLinkedin,
 } from "react-icons/fa";
-import { Link } from "react-router-dom";
 import Logo from "../images/Logo.png";
 import styles from "../styles/Footer.module.css";
 
@@ -19,30 +18,49 @@ const Footer = () => {
       <section id={styles.middleContainer}>
         <img src={Logo} alt="Logo Of Tragency" className="logo" />
         <section id={styles.linkContainer}>
-          <Link to="" className={styles.link}>
+          <a
+            target="_blank"
+            href="https://tragency.github.io/Tragency/"
+            className={styles.link}
+          >
             Home
-          </Link>
-          <Link to="" className={styles.link}>
+          </a>
+          <a
+            target="_blank"
+            href="https://tragency.github.io/Tragency#team"
+            className={styles.link}
+          >
             Team
-          </Link>
-          <Link to="" className={styles.link}>
+          </a>
+          <a
+            target="_blank"
+            href="https://tragency.github.io/Tragency#why-us"
+            className={styles.link}
+          >
             Why Us?
-          </Link>
-          <Link to="" className={styles.link}>
+          </a>
+          <a
+            target="_blank"
+            href="https://tragency.github.io/Tragency#contact"
+            className={styles.link}
+          >
             Contact
-          </Link>
+          </a>
         </section>
       </section>
       <section id={styles.links}>
-        <Link to="">
+        <a target="_blank" href="https://www.facebook.com/Tragencytravels/">
           <FaFacebook />
-        </Link>
-        <Link to="">
+        </a>
+        <a target="_blank" href="http://instagram.com/tragency_travels">
           <FaInstagram />
-        </Link>
-        <Link to="">
+        </a>
+        <a
+          target="_blank"
+          href="https://www.linkedin.com/company/tragency-travel"
+        >
           <FaLinkedin />
-        </Link>
+        </a>
       </section>
     </footer>
   );

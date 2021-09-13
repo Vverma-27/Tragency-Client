@@ -96,6 +96,7 @@
     right: 5rem;
     font-size: 3rem;
     transform: translateY(-50%);
+    color: #1b1b62;
 }
 
 .note {
@@ -120,7 +121,7 @@
         font-size: 2rem;
     }
     .eye {
-        right: 1rem;
+        right: 2rem;
         font-size: 2rem;
     }
 }

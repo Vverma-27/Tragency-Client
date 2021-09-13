@@ -20,12 +20,12 @@ import Comments from "./comments";
 const App = ({ loadUser, isAuthenticated }) => {
   useEffect(() => {
     loadUser();
-    if (history.location.pathname.split("/")[1] !== "auth") {
-      if (!isAuthenticated) history.push("/auth/signin");
-    }
-    if (history.location.pathname.split("/")[1] === "auth" && isAuthenticated) {
-      history.push("/feed");
-    }
+    // if (history.location.pathname.split("/")[1] !== "auth") {
+    //   if (!isAuthenticated) history.push("/auth/signin");
+    // }
+    // if (history.location.pathname.split("/")[1] === "auth" && isAuthenticated) {
+    //   history.push("/feed");
+    // }
   }, [loadUser, isAuthenticated]);
   // useBottomScrollListener(
   //   () => {

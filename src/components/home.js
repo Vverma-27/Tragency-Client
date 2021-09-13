@@ -44,6 +44,25 @@ const Feed = ({ getPosts, posts }) => {
           <p class="heading_main" style={{ textTransform: "capitalize" }}>
             Have Something on Your mind
           </p>
+          <a
+            href="mailto:@vihaan.verma@tragency.in"
+            className="sub-heading"
+            style={{
+              background: " #000",
+              borderRadius: " 8px",
+              fontSize: " 1.5rem",
+              padding: " 1rem",
+              color: " #fff",
+              float: " right",
+              marginTop: "0.7rem",
+            }}
+          >
+            Report a bug
+          </a>
+          <br />
+          <p class="note">
+            To change feed type, please select option from sidebar
+          </p>
           <section
             style={{
               display: "flex",
@@ -72,9 +91,6 @@ const Feed = ({ getPosts, posts }) => {
               </h2>
             </Link>
           </section>
-          <p class="note top">
-            To change feed type, please select option from sidebar
-          </p>
         </section>
         {renderedPosts}
       </section>
