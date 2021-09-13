@@ -71,7 +71,7 @@
     color: #fff;
     background: rgba(196, 196, 196, 0.2);
     padding: 2rem;
-    font-size: 1.5rem;
+    font-size: 3.5rem;
     border-radius: 0.3rem;
     margin-bottom: 4vh;
 }
@@ -86,8 +86,16 @@
     background: #1b1b62;
     text-transform: capitalize;
     padding: 2rem;
-    font-size: 2rem;
+    font-size: 4rem;
     border-radius: 0.3rem;
+}
+
+.eye {
+    position: absolute;
+    top: 50%;
+    right: 5rem;
+    font-size: 3rem;
+    transform: translateY(-50%);
 }
 
 .note {
@@ -96,7 +104,7 @@
     font-size: 1.3rem;
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 670px) {
     .formContainer {
         width: 40%;
         right: 2rem;
@@ -104,5 +112,15 @@
     }
     .heading {
         margin: 0 0 1.5rem 0;
+    }
+    .input {
+        font-size: 1.5rem;
+    }
+    .button {
+        font-size: 2rem;
+    }
+    .eye {
+        right: 1rem;
+        font-size: 2rem;
     }
 }

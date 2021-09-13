@@ -4,10 +4,12 @@ import { Link } from "react-router-dom";
 import { signin } from "../actions";
 import styles from "../styles/Auth.module.css";
 import Image from "../images/Image2.svg";
+import { FaEye } from "react-icons/fa";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
   const login = useCallback(
     (msg, type) => dispatch(signin(msg, type)),
@@ -21,7 +23,7 @@ const SignIn = () => {
     <section className={styles.backgroundOverlay}>
       <section className={styles.overlay}></section>
       <section className={styles.mainContainer}>
-        {window.innerWidth >= 767 ? (
+        {window.innerWidth >= 671 ? (
           <>
             <section className={styles.overlay2}></section>
             <img src={Image} alt="Traveller" className={styles.image} />
@@ -43,15 +45,26 @@ const SignIn = () => {
             name="email"
             placeholder="Enter Your Email"
           />
-          <input
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required={true}
-            type="password"
-            name="password"
-            className={`${styles.input} ${styles.inputIn}`}
-            placeholder="Enter Your Password"
-          />
+          <section className={styles.inputIn} style={{ position: "relative" }}>
+            <label
+              className={styles.eye}
+              onClick={() => {
+                setShowPassword(!showPassword);
+              }}
+            >
+              <FaEye />
+            </label>
+            <input
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required={true}
+              type={(!showPassword && "password") || "text"}
+              name="password"
+              className={`${styles.input}`}
+              style={{ marginBottom: "0" }}
+              placeholder="Enter Your Password"
+            />
+          </section>
           <button type="submit" className={styles.button}>
             Login
           </button>

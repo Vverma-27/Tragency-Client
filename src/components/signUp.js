@@ -4,12 +4,15 @@ import { Link } from "react-router-dom";
 import { setAlert, signUp } from "../actions";
 import styles from "../styles/Auth.module.css";
 import Image from "../images/Image1.svg";
+import { FaEye } from "react-icons/fa";
 
 const SignUp = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [cpassword, setCpassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const dispatch = useDispatch();
   const alert = useCallback(
     (msg, type) => dispatch(setAlert(msg, type)),
@@ -34,7 +37,7 @@ const SignUp = () => {
     <section className={styles.backgroundOverlay}>
       <section className={styles.overlay}></section>
       <section className={styles.mainContainer}>
-        {window.innerWidth >= 767 ? (
+        {window.innerWidth >= 671 ? (
           <>
             <section className={styles.overlay2}></section>
             <img src={Image} alt="Traveller" className={styles.image} />
@@ -62,24 +65,46 @@ const SignUp = () => {
             name="email"
             placeholder="Enter Your Email"
           />
-          <input
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required={true}
-            type="password"
-            name="password"
-            className={styles.input}
-            placeholder="Enter Your Password"
-          />
-          <input
-            value={cpassword}
-            onChange={(e) => setCpassword(e.target.value)}
-            required={true}
-            type="password"
-            name="confirm_pass"
-            className={styles.input}
-            placeholder="Confirm Your Password"
-          />
+          <section style={{ position: "relative", marginBottom: "4vh" }}>
+            <label
+              className={styles.eye}
+              onClick={() => {
+                setShowPassword(!showPassword);
+              }}
+            >
+              <FaEye />
+            </label>
+            <input
+              style={{ marginBottom: "0" }}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required={true}
+              type={(!showPassword && "password") || "text"}
+              name="password"
+              className={styles.input}
+              placeholder="Enter Your Password"
+            />
+          </section>
+          <section style={{ position: "relative", marginBottom: "4vh" }}>
+            <label
+              className={styles.eye}
+              onClick={() => {
+                setShowConfirmPassword(!showConfirmPassword);
+              }}
+            >
+              <FaEye />
+            </label>
+            <input
+              style={{ marginBottom: "0" }}
+              value={cpassword}
+              onChange={(e) => setCpassword(e.target.value)}
+              required={true}
+              type={(!showConfirmPassword && "password") || "text"}
+              name="confirm_pass"
+              className={styles.input}
+              placeholder="Confirm Your Password"
+            />
+          </section>
           <button type="submit" className={styles.button}>
             Signup
           </button>
