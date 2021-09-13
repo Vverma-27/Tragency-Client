@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { Router, Switch, Route } from "react-router-dom";
+import { Router, Switch, Route, Redirect } from "react-router-dom";
 // import { useBottomScrollListener } from "react-bottom-scroll-listener";
 import { loadUser } from "../actions";
 import Header from "./header";
@@ -119,6 +119,9 @@ const App = ({ loadUser, isAuthenticated }) => {
               </>
             )}
           />
+          <Route path="*">
+            <Redirect to="/feed" />
+          </Route>
         </Switch>
       </Router>
     </section>
