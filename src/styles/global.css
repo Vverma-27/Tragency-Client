@@ -14,6 +14,7 @@ body,
     overflow-x: hidden;
     font-family: "Open Sans", sans-serif;
     height: 100%;
+    color: #fff;
 }
 
 button {
@@ -76,10 +77,11 @@ a:active {
 }
 
 .container {
-    background: #eaf4fe;
+    background: #3464ac;
     border-radius: 1.1rem;
     padding: 0.5vh 1vw;
     position: relative;
+    color: #fff;
 }
 
 .out_container {
@@ -107,7 +109,7 @@ a:active {
     position: absolute;
     font-size: 2.5rem;
     right: 2vw;
-    color: hsla(0, 93%, 24%, 0.7);
+    color: hsla(0, 100%, 50%, 0.7);
     top: 3vh;
 }
 
@@ -117,7 +119,7 @@ a:active {
 }
 
 .likes_active {
-    color: rgba(101, 185, 73, 1);
+    color: #9ce085;
     font-weight: 600;
 }
 
@@ -128,8 +130,17 @@ a:active {
 }
 
 .blue {
-    color: #007eff !important;
+    color: #9ce085 !important;
     font-weight: 800;
+}
+
+textarea {
+    background: #d8e1fe !important;
+}
+
+button[type="submit"] {
+    background: #000;
+    color: #fff;
 }
 
 @media screen and (min-width: 500px) {

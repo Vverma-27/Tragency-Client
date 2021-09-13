@@ -26,6 +26,8 @@
     font-size: 1.3rem;
     top: 53%;
     transform: translateY(-50%);
+    background: none !important;
+    color: #000 !important;
 }
 
 @media only screen and (min-width: 375px) {

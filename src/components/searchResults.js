@@ -40,6 +40,21 @@ const Search = ({ getPosts, posts }) => {
           <p class="heading_main" style={{ textTransform: "capitalize" }}>
             Showing {t} for:
           </p>
+          <a
+            href="mailto:@vihaan.verma@tragency.in"
+            className="sub-heading"
+            style={{
+              background: " #000",
+              borderRadius: " 8px",
+              fontSize: " 1.5rem",
+              padding: " 1rem",
+              color: " #fff",
+              float: " right",
+              marginTop: "0.7rem",
+            }}
+          >
+            Report a bug
+          </a>
           <h2 class="sub-headings" style={{ textTransform: "capitalize" }}>
             {q}
           </h2>

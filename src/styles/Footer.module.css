@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;700&display=swap");
 #footer {
     display: flex;
-    background: #eaf4fe;
+    background: #fff;
     padding: 0.5rem 10rem;
     justify-content: space-between;
     align-items: center;
