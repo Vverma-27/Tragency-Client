@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaCommentMedical, FaTrashAlt } from "react-icons/fa";
 import { isEqual } from "lodash";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteComment, postReply } from "../actions";
+import { deleteComment, postReply, setAlert } from "../actions";
 import Reply from "./reply";
 
 const Comment = ({ index, id }) => {
@@ -92,6 +92,8 @@ const Comment = ({ index, id }) => {
           <form
             onSubmit={(e) => {
               e.preventDefault();
+              if (!reply)
+                dispatch(setAlert("Comment Text cannot be empty", "error"));
               addReply();
               setReply("");
             }}

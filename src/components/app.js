@@ -9,13 +9,13 @@ import Search from "./searchResults";
 import PostContent from "./postContent";
 import Home from "./home";
 // import MainDiary from "./diary";
-import "../styles/global.css";
 import Coming from "./coming";
 import SignIn from "./signIn";
 import history from "../history";
 import SignUp from "./signUp";
 import Alert from "./alert";
 import Comments from "./comments";
+import "../styles/global.css";
 
 const App = ({ loadUser, isAuthenticated }) => {
   useEffect(() => {
