@@ -44,6 +44,8 @@ select {
     width: 20vw;
     margin-bottom: 2vh;
     cursor: pointer;
+    font-size: 2rem;
+    min-width: 30vw;
 }
 
 select {

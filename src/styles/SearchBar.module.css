@@ -1,8 +1,8 @@
 #searchBar {
     background: rgba(92, 79, 168, 0.4);
     border-radius: 1rem;
-    width: 50rem;
-    margin-left: -45rem;
+    width: 37rem;
+    margin-left: -16rem;
     position: relative;
 }
 
@@ -16,6 +16,7 @@
     border: none;
     background: rgba(0, 0, 0, 0);
     padding: 0 2rem;
+    font-size: 1.4rem;
 }
 
 .submit {
@@ -25,4 +26,10 @@
     font-size: 1.3rem;
     top: 53%;
     transform: translateY(-50%);
+}
+
+@media only screen and (min-width: 375px) {
+    #searchBar {
+        width: 50rem;
+    }
 }

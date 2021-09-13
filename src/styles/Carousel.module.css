@@ -1,0 +1,27 @@
+.carouselContainer {
+    position: relative;
+    height: 50vh;
+}
+
+.carouselContainer i {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+}
+
+.carouselContainer svg {
+    /* height: 10vh */
+    font-size: 4rem;
+    color: #000;
+    background: #d8e1fe;
+    border-radius: 50%;
+}
+
+.carouselContainer i:first-of-type {
+    left: 1vw;
+}
+
+.carouselContainer i:last-of-type {
+    right: 1vw;
+}

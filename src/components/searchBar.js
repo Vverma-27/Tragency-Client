@@ -7,7 +7,7 @@ const SearchBar = () => {
   const history = useHistory();
   const [term, setTerm] = useState("");
   const handleClick = (query) =>
-    history.push(`results?query=${query}&type=images`);
+    history.push(`/results?query=${query}&type=images`);
   const onSubmit = (e) => {
     e.preventDefault();
     setTerm("");

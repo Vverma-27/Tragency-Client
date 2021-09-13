@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   FaImage,
   FaPhotoVideo,
@@ -7,32 +7,48 @@ import {
   FaVideo,
 } from "react-icons/fa";
 import { useHistory, useRouteMatch } from "react-router-dom";
+import { connect } from "react-redux";
+import { loadUser } from "../actions";
 import useQuery from "./useQuery";
-import Image1 from "../images/image1.jpg";
 import styles from "../styles/Side.module.css";
 
-const Sidebar = () => {
+const Sidebar = ({ loadUser, username, avatar }) => {
   const query = useQuery();
   const { url } = useRouteMatch();
   const q = !query.get("query") ? "Ladakh" : query.get("query");
-  const t = query.get("type");
+  const t = !query.get("type") ? "images" : query.get("type");
   const history = useHistory();
   const active = (string) =>
     t ? (t.toLowerCase() === string ? "active" : "") : "";
   const handleClick = (url) => history.push(url);
+  // const username = useSelector((state) => state.auth.user.username, _.isEqual);
+  // const dispatch = useDispatch();
+  // const userLoad = () => dispatch(loadUser());
+  useEffect(() => {
+    loadUser();
+  }, [loadUser]);
+  // const { user } = useSelector((state) => state.auth, isEqual);
+  // console.log(username);
   return (
     <aside id={styles.sidebar}>
       <section id={styles.user_info}>
-        <img src={Image1} alt="Profile image" className="profile-photo" />
+        <img
+          src={avatar}
+          alt="Profile"
+          className="profile-photo"
+          style={{ margin: "0.5rem" }}
+        />
         <p className="heading_main" style={{ fontSize: "1.1rem" }}>
-          Vihaan Verma
-          <br />
-          <span className="note">@vihaan2707</span>
+          @{username}
         </p>
       </section>
       <section
         class={`${styles.parent} ${styles[active("images")]}`}
-        onClick={() => handleClick(`results?query=${q}&type=images`)}
+        onClick={() =>
+          handleClick(
+            `${url}${url === "/results" ? `?query=${q}&` : "?"}type=images`
+          )
+        }
       >
         <section class={`${styles.option} ${styles[active("images")]}`}>
           <FaImage /> Images
@@ -40,7 +56,11 @@ const Sidebar = () => {
       </section>
       <section
         class={`${styles.parent} ${styles[active("blogs")]}`}
-        onClick={() => handleClick(`results?query=${q}&type=blogs`)}
+        onClick={() =>
+          handleClick(
+            `${url}${url === "/results" ? `?query=${q}&` : "?"}type=blogs`
+          )
+        }
       >
         <section class={`${styles.option} ${styles[active("blogs")]}`}>
           <FaTh /> Blogs
@@ -48,7 +68,11 @@ const Sidebar = () => {
       </section>
       <section
         class={`${styles.parent} ${styles[active("vlogs")]}`}
-        onClick={() => handleClick(`results?query=${q}&type=vlogs`)}
+        onClick={() =>
+          handleClick(
+            `${url}${url === "/results" ? `?query=${q}&` : "?"}type=vlogs`
+          )
+        }
       >
         <section class={`${styles.option} ${styles[active("vlogs")]}`}>
           <FaPhotoVideo /> Vlogs
@@ -74,5 +98,8 @@ const Sidebar = () => {
     </aside>
   );
 };
-
-export default Sidebar;
+const mapStateToProps = (state) => ({
+  username: state.auth.user.username,
+  avatar: state.auth.user.avatar,
+});
+export default connect(mapStateToProps, { loadUser })(Sidebar);

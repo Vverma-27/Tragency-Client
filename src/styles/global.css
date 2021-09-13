@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700;800&display=swap");
 html {
-    font-size: 10px;
+    font-size: 4px;
 }
 
 p {
@@ -8,10 +8,12 @@ p {
 }
 
 html,
-body {
+body,
+#root {
     margin: 0;
     overflow-x: hidden;
     font-family: "Open Sans", sans-serif;
+    height: 100%;
 }
 
 button {
@@ -43,12 +45,12 @@ a:active {
 
 .main {
     padding: 2vh 3vw;
-    width: 65vw;
+    /* width: 65vw; */
     /* transform: translateX(-50%); */
-    margin: 0 auto;
+    margin: 0 0 0 16rem;
     display: flex;
     justify-content: space-around;
-    flex-flow: column wrap;
+    align-items: baseline;
 }
 
 .note {
@@ -80,6 +82,10 @@ a:active {
     position: relative;
 }
 
+.out_container {
+    width: 97%;
+}
+
 .post-info {
     margin-top: 1vh;
 }
@@ -89,16 +95,30 @@ a:active {
     width: 5rem;
     height: 5rem;
     display: inline-block;
-    margin: -2vh 1vw;
+    margin: -1.5rem 1rem;
 }
 
 .post {
     margin-top: 2vh;
+    position: relative;
+}
+
+.delete_button {
+    position: absolute;
+    font-size: 2.5rem;
+    right: 2vw;
+    color: hsla(0, 93%, 24%, 0.7);
+    top: 3vh;
 }
 
 .post-media {
     width: 100%;
     border-radius: 1rem;
+}
+
+.likes_active {
+    color: rgba(101, 185, 73, 1);
+    font-weight: 600;
 }
 
 .extras {
@@ -110,4 +130,52 @@ a:active {
 .blue {
     color: #007eff !important;
     font-weight: 800;
+}
+
+@media screen and (min-width: 500px) {
+    html {
+        font-size: 5px;
+    }
+}
+
+@media screen and (min-width: 650px) {
+    html {
+        font-size: 7px;
+    }
+}
+
+@media only screen and (min-width: 791px) {
+    .out_container {
+        width: 75%;
+    }
+}
+
+@media only screen and (min-width: 1024px) {
+    html {
+        font-size: 8px !important;
+    }
+}
+
+@media only screen and (min-width: 1100px) {
+    html {
+        font-size: 9px !important;
+    }
+}
+
+@media only screen and (min-width: 1440px) {
+    html {
+        font-size: 12px !important;
+    }
+}
+
+@media only screen and (min-width: 1700px) {
+    html {
+        font-size: 17px !important;
+    }
+}
+
+@media only screen and (min-width: 2300px) {
+    html {
+        font-size: 25px !important;
+    }
 }
