@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { Router, Switch, Route, Redirect } from "react-router-dom";
+import { Router, Switch, Route } from "react-router-dom";
 // import { useBottomScrollListener } from "react-bottom-scroll-listener";
 import { loadUser } from "../actions";
 import Header from "./header";
@@ -10,12 +10,12 @@ import PostContent from "./postContent";
 import Home from "./home";
 // import MainDiary from "./diary";
 import Coming from "./coming";
-import SignIn from "./signIn";
 import history from "../history";
-import SignUp from "./signUp";
 import Alert from "./alert";
 import Comments from "./comments";
 import "../styles/global.css";
+import SignIn from "./signIn";
+import SignUp from "./signUp";
 
 const App = ({ loadUser, isAuthenticated }) => {
   useEffect(() => {

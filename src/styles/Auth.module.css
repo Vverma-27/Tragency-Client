@@ -83,7 +83,7 @@
 .button {
     width: 98%;
     color: #fff;
-    background: #1b1b62;
+    background: #1b1b62 !important;
     text-transform: capitalize;
     padding: 2rem;
     font-size: 4rem;
@@ -102,7 +102,7 @@
 .note {
     color: #fff;
     font-weight: 600;
-    font-size: 1.3rem;
+    font-size: 2rem;
 }
 
 @media only screen and (min-width: 670px) {
@@ -123,5 +123,8 @@
     .eye {
         right: 2rem;
         font-size: 2rem;
+    }
+    .note {
+        font-size: 1.3rem;
     }
 }

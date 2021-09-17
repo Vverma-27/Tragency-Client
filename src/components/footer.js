@@ -20,6 +20,7 @@ const Footer = () => {
         <section id={styles.linkContainer}>
           <a
             target="_blank"
+            rel="noopener noreferrer"
             href="https://tragency.github.io/Tragency/"
             className={styles.link}
           >
@@ -27,6 +28,7 @@ const Footer = () => {
           </a>
           <a
             target="_blank"
+            rel="noopener noreferrer"
             href="https://tragency.github.io/Tragency#team"
             className={styles.link}
           >
@@ -34,6 +36,7 @@ const Footer = () => {
           </a>
           <a
             target="_blank"
+            rel="noopener noreferrer"
             href="https://tragency.github.io/Tragency#why-us"
             className={styles.link}
           >
@@ -41,6 +44,7 @@ const Footer = () => {
           </a>
           <a
             target="_blank"
+            rel="noopener noreferrer"
             href="https://tragency.github.io/Tragency#contact"
             className={styles.link}
           >
@@ -49,14 +53,23 @@ const Footer = () => {
         </section>
       </section>
       <section id={styles.links}>
-        <a target="_blank" href="https://www.facebook.com/Tragencytravels/">
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://www.facebook.com/Tragencytravels/"
+        >
           <FaFacebook />
         </a>
-        <a target="_blank" href="http://instagram.com/tragency_travels">
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="http://instagram.com/tragency_travels"
+        >
           <FaInstagram />
         </a>
         <a
           target="_blank"
+          rel="noopener noreferrer"
           href="https://www.linkedin.com/company/tragency-travel"
         >
           <FaLinkedin />

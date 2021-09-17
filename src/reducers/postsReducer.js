@@ -9,21 +9,35 @@ import {
   POST_DELETE_FAIL,
   POST_COMMENT_UPDATE_SUCCESS,
   POST_COMMENT_UPDATE_FAIL,
+  INFINITE_POSTS_LOAD_SUCCESS,
+  INFINITE_POSTS_LOAD_FAIL,
+  POSTS_LOADING,
 } from "../actions/types";
-const initialState = { posts: [] };
+const initialState = { posts: [], loading: true, hasMore: true };
 const postsReducer = (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
     case POSTS_LOAD_SUCCESS:
-      return { ...state, posts: payload };
+      return {
+        ...state,
+        posts: payload.posts,
+        loading: false,
+        hasMore: true,
+      };
     case POSTS_LOAD_FAIL:
-      return { posts: [] };
+      return {
+        ...state,
+        posts: [],
+        loading: true,
+        hasMore: false,
+      };
     case POST_UPLOAD_SUCCESS:
-      return { posts: [...state.posts, payload] };
+      return { ...state, posts: [...state.posts, payload] };
     case POST_UPLOAD_FAIL:
       return { ...state };
     case POSTS_LIKE_UPDATE_SUCCESS:
       return {
+        ...state,
         posts: state.posts.map((post) =>
           post._id === payload.id ? { ...post, likes: payload.likes } : post
         ),
@@ -32,6 +46,7 @@ const postsReducer = (state = initialState, action) => {
       return { ...state };
     case POST_DELETE_SUCCESS:
       return {
+        ...state,
         posts: state.posts.map((post) =>
           post._id === payload.id ? null : post
         ),
@@ -40,6 +55,7 @@ const postsReducer = (state = initialState, action) => {
       return { ...state };
     case POST_COMMENT_UPDATE_SUCCESS:
       return {
+        ...state,
         posts: state.posts.map((post) =>
           post._id === payload.id
             ? { ...post, comments: payload.comments }
@@ -48,6 +64,17 @@ const postsReducer = (state = initialState, action) => {
       };
     case POST_COMMENT_UPDATE_FAIL:
       return { ...state };
+    case INFINITE_POSTS_LOAD_SUCCESS:
+      return {
+        ...state,
+        posts: [...state.posts, ...payload.posts],
+        loading: false,
+        hasMore: true,
+      };
+    case INFINITE_POSTS_LOAD_FAIL:
+      return { ...state, loading: true, hasMore: false };
+    case POSTS_LOADING:
+      return { ...state, loading: true };
     default:
       return state;
   }

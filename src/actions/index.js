@@ -21,6 +21,9 @@ import {
   POST_DELETE_FAIL,
   POST_COMMENT_UPDATE_SUCCESS,
   POST_COMMENT_UPDATE_FAIL,
+  INFINITE_POSTS_LOAD_SUCCESS,
+  INFINITE_POSTS_LOAD_FAIL,
+  POSTS_LOADING,
 } from "./types";
 import { auth, postsRoute } from "../apis";
 
@@ -98,12 +101,14 @@ export const getPosts =
   (type, location = "") =>
   async (dispatch) => {
     try {
-      const url = location ? `/type/${type}/${location}` : `/type/${type}`;
+      const url = location
+        ? `/type/${type}/${location}?page=1`
+        : `/type/${type}?page=1`;
       const {
         data: { posts },
       } = await postsRoute.get(url);
       // console.log(posts);
-      dispatch({ type: POSTS_LOAD_SUCCESS, payload: posts });
+      dispatch({ type: POSTS_LOAD_SUCCESS, payload: { posts } });
     } catch (e) {
       console.log(e.response);
       const errors = e.response.data.errors;
@@ -127,13 +132,6 @@ export const getPost = (id) => async (dispatch) => {
 };
 export const uploadPost = (formValues) => async (dispatch) => {
   try {
-    // if (formValues.get("type") !== "blogs")
-    //   dispatch(
-    //     setAlert(
-    //       "Please wait file is being uploaded! It may take upto 2-3 minutes",
-    //       "warning"
-    //     )
-    //   );
     const {
       data: { post },
     } = await postsRoute.post(`/`, formValues, {
@@ -252,3 +250,25 @@ export const deleteReply = (id, commentId, replyId) => async (dispatch) => {
     dispatch({ type: POST_COMMENT_UPDATE_FAIL });
   }
 };
+
+export const getInfinitePosts =
+  (type, location = "", page = 2) =>
+  async (dispatch) => {
+    console.log(page);
+    try {
+      const url = location
+        ? `/type/${type}/${location}?page=${page}`
+        : `/type/${type}?page=${page}`;
+      const {
+        data: { posts },
+      } = await postsRoute.get(url);
+      console.log(posts);
+      dispatch({
+        type: INFINITE_POSTS_LOAD_SUCCESS,
+        payload: { posts },
+      });
+    } catch (e) {
+      dispatch({ type: INFINITE_POSTS_LOAD_FAIL });
+    }
+  };
+export const postsLoading = () => ({ type: POSTS_LOADING });

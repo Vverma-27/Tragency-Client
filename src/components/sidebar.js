@@ -21,14 +21,9 @@ const Sidebar = ({ loadUser, username, avatar }) => {
   const active = (string) =>
     t ? (t.toLowerCase() === string ? "active" : "") : "";
   const handleClick = (url) => history.push(url);
-  // const username = useSelector((state) => state.auth.user.username, _.isEqual);
-  // const dispatch = useDispatch();
-  // const userLoad = () => dispatch(loadUser());
   useEffect(() => {
     loadUser();
   }, [loadUser]);
-  // const { user } = useSelector((state) => state.auth, isEqual);
-  // console.log(username);
   return (
     <aside id={styles.sidebar}>
       <section id={styles.user_info}>

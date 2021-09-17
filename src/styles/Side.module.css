@@ -36,6 +36,7 @@
 .parent {
     transition: 0.5s ease all;
     cursor: pointer;
+    text-align: start;
 }
 
 .option svg {

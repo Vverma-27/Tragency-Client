@@ -45,13 +45,14 @@ a:active {
 }
 
 .main {
-    padding: 2vh 3vw;
+    padding: 2vh 2vw;
     /* width: 65vw; */
     /* transform: translateX(-50%); */
-    margin: 0 0 0 16rem;
+    margin: 0 0 0 0;
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-end;
     align-items: baseline;
+    position: relative;
 }
 
 .note {
@@ -85,7 +86,7 @@ a:active {
 }
 
 .out_container {
-    width: 97%;
+    width: 92vw;
 }
 
 .post-info {
@@ -137,6 +138,8 @@ a:active {
 textarea {
     background: #d8e1fe !important;
     color: #000 !important;
+    height: 5vh !important;
+    font-size: 2rem;
 }
 
 button[type="submit"] {
@@ -159,6 +162,11 @@ button[type="submit"] {
 @media only screen and (min-width: 791px) {
     .out_container {
         width: 75%;
+    }
+    .main {
+        padding: 2vh 3vw;
+        justify-content: space-around;
+        margin: 0 0 0 16rem;
     }
 }
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { FaBook, FaCameraRetro, FaPlusSquare, FaVideo } from "react-icons/fa";
 // import { useBottomScrollListener } from "react-bottom-scroll-listener";
 import { connect } from "react-redux";
@@ -9,14 +9,65 @@ import TopSearches from "./topSearches";
 import useQuery from "./useQuery";
 
 import Diary from "./diaryExtract";
-import { getPosts } from "../actions";
+import { getPosts, getInfinitePosts, postsLoading } from "../actions";
+import Menu from "./menu";
 
-const Feed = ({ getPosts, posts }) => {
+const Feed = ({
+  getPosts,
+  getInfinitePosts,
+  postsLoading,
+  posts: { posts, loading, hasMore },
+}) => {
+  const [page, setPage] = useState(1);
+  const observer = useRef();
   const query = useQuery();
   const t = !query.get("type") ? "images" : query.get("type");
+  const postCallbackRef = useCallback(
+    (node) => {
+      if (loading) return;
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver(
+        (entries) => {
+          if (entries[0].isIntersecting && hasMore) {
+            postsLoading();
+            // console.log(entries[0].target);
+            getInfinitePosts(t, "", page + 1);
+            setPage(page + 1);
+          }
+        },
+        {
+          root: null,
+          threshold: 0.5,
+          rootMargin: "0px",
+        }
+      );
+      if (node) observer.current.observe(node);
+    },
+    [loading, hasMore, getInfinitePosts, page, t, postsLoading]
+  );
   useEffect(() => {
+    setPage(1);
     getPosts(t);
-  }, [t, getPosts]);
+  }, [t, getPosts, setPage]);
+  const renderedPosts = posts.map((post, i) =>
+    post === null
+      ? null
+      : (i + 1 === posts.length && (
+          <section ref={postCallbackRef}>
+            <Post
+              key={i}
+              t={t}
+              post={post}
+              isLast={true}
+              setPage={setPage}
+              page={page}
+              loading={loading}
+              getInfinitePosts={getInfinitePosts}
+              location=""
+            />
+          </section>
+        )) || <Post key={i} t={t} post={post} />
+  );
   const renderedComponents = (
     <section
       style={{
@@ -30,15 +81,12 @@ const Feed = ({ getPosts, posts }) => {
       <TopSearches />
     </section>
   );
-  const renderedPosts = posts.map((post) =>
-    post === null ? "" : <Post key={post._id} t={t} post={post} />
-  );
   return (
     <main
       class="main
     "
     >
-      <Sidebar />
+      {window.innerWidth > 790 ? <Sidebar /> : <Menu />}
       <section class="out_container">
         <section class="container">
           <p class="heading_main" style={{ textTransform: "capitalize" }}>
@@ -101,7 +149,11 @@ const Feed = ({ getPosts, posts }) => {
 
 const mapStateToProps = ({ posts }) => {
   // console.log(posts);
-  return { posts: posts.posts };
+  return { posts };
 };
 
-export default connect(mapStateToProps, { getPosts })(Feed);
+export default connect(mapStateToProps, {
+  getPosts,
+  getInfinitePosts,
+  postsLoading,
+})(Feed);

@@ -15,7 +15,16 @@ import { deletePost, likePost, unlikePost, postComment } from "../actions";
 // import Image1 from "../images/image1.jpg";
 // import video from "../videos/Video.mp4";
 
-const Post = ({ t, post }) => {
+const Post = ({
+  t,
+  post,
+  isLast,
+  setPage,
+  page,
+  loading,
+  getInfinitePosts,
+  location,
+}) => {
   // const [reload, setReload] = useState(false);
   const [comment, setComment] = useState("");
   const loggedInUserId = useSelector((state) => state.auth.user._id, isEqual);
@@ -35,6 +44,10 @@ const Post = ({ t, post }) => {
   };
   const removePost = (id) => {
     dispatch(deletePost(id));
+    if (isLast && !loading) {
+      getInfinitePosts(t, location, page + 1);
+      setPage(page + 1);
+    }
   };
   // console.log(post.likes);
   // console.log(post.user.username + " " + post.user.avatar);

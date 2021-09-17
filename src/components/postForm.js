@@ -30,13 +30,7 @@ const PostForm = () => {
     }
     console.log(files);
     const location = `${country}, ${region}`;
-    const content =
-      type === "blogs"
-        ? blog
-        : [
-            "https://i.picsum.photos/id/338/536/354.jpg?hmac=GM18LpV1PFucRDBp1wYO81AR70GZk0ZfdXYJ6I9B9a4",
-            "https://i.picsum.photos/id/338/536/354.jpg?hmac=GM18LpV1PFucRDBp1wYO81AR70GZk0ZfdXYJ6I9B9a4",
-          ];
+    const content = blog;
     // const formData = { location, content, title: caption, type, tags, files };
     const travelTags = tags
       .replaceAll("#", " ")
@@ -109,8 +103,6 @@ const PostForm = () => {
           class={styles.input}
           value={type}
           onChange={(e) => setType(e.target.value)}
-          // defaultInputValue = {t}
-          // defaultValue={{ label: t[0].toUpperCase() + t.substr(1), value: t }}
         >
           <option value="images">Image</option>
           <option value="blogs">Blog</option>
@@ -177,6 +169,7 @@ const PostForm = () => {
         <textarea
           required={true}
           name="caption"
+          placeholder="Ohh I had the best day today!"
           class={styles.input}
           cols="30"
           rows="3"
@@ -196,6 +189,7 @@ const PostForm = () => {
         <textarea
           name="tags"
           class={styles.input}
+          placeholder="#fun#test#great#travel#goa"
           cols="30"
           rows="5"
           value={tags}

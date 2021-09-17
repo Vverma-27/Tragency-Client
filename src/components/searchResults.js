@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 import Post from "./post";
 import Sidebar from "./sidebar";
@@ -6,13 +6,45 @@ import TopSearches from "./topSearches";
 
 import Diary from "./diaryExtract";
 import useQuery from "./useQuery";
-import { getPosts } from "../actions";
+import { getPosts, getInfinitePosts, postsLoading } from "../actions";
+import Menu from "./menu";
 
-const Search = ({ getPosts, posts }) => {
+const Search = ({
+  getPosts,
+  getInfinitePosts,
+  postsLoading,
+  posts: { posts, loading, hasMore },
+}) => {
+  const [page, setPage] = useState(1);
+  const observer = useRef();
   const query = useQuery();
   const q = query.get("query");
   const t = query.get("type");
+  const postCallbackRef = useCallback(
+    (node) => {
+      if (loading) return;
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver(
+        (entries) => {
+          if (entries[0].isIntersecting && hasMore) {
+            postsLoading();
+            // console.log(entries[0].target);
+            getInfinitePosts(t, q, page + 1);
+            setPage(page + 1);
+          }
+        },
+        {
+          root: null,
+          threshold: 0.5,
+          rootMargin: "0px",
+        }
+      );
+      if (node) observer.current.observe(node);
+    },
+    [loading, hasMore, getInfinitePosts, page, t, postsLoading, q]
+  );
   useEffect(() => {
+    setPage(1);
     getPosts(t, q);
   }, [t, q, getPosts]);
   const renderedComponents = (
@@ -29,12 +61,28 @@ const Search = ({ getPosts, posts }) => {
     </section>
   );
   console.log(posts);
-  const renderedPosts = posts.map((post) =>
-    post === null ? "" : <Post key={post._id} t={t} post={post} />
+  const renderedPosts = posts.map((post, i) =>
+    post === null
+      ? null
+      : (i + 1 === posts.length && (
+          <section ref={postCallbackRef}>
+            <Post
+              key={i}
+              t={t}
+              post={post}
+              isLast={true}
+              setPage={setPage}
+              page={page}
+              loading={loading}
+              getInfinitePosts={getInfinitePosts}
+              location=""
+            />
+          </section>
+        )) || <Post key={i} t={t} post={post} />
   );
   return (
     <main class="main">
-      <Sidebar />
+      {window.innerWidth > 790 ? <Sidebar /> : <Menu />}
       <section class="out_container">
         <section class="container">
           <p class="heading_main" style={{ textTransform: "capitalize" }}>
@@ -71,7 +119,11 @@ const Search = ({ getPosts, posts }) => {
 
 const mapStateToProps = ({ posts }) => {
   // console.log(posts);
-  return { posts: posts.posts };
+  return { posts };
 };
 
-export default connect(mapStateToProps, { getPosts })(Search);
+export default connect(mapStateToProps, {
+  getPosts,
+  getInfinitePosts,
+  postsLoading,
+})(Search);
