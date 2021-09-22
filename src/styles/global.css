@@ -147,6 +147,10 @@ button[type="submit"] {
     color: #fff !important;
 }
 
+button[type="submit"].buttonSubmit {
+    background: rgba(108, 99, 255, 0.7) !important;
+}
+
 @media screen and (min-width: 500px) {
     html {
         font-size: 5px;

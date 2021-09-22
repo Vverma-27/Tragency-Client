@@ -5,13 +5,20 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   FaComment,
   FaCommentMedical,
+  FaExclamationCircle,
   FaGlobe,
   FaPlaneDeparture,
   // FaTrash,
   FaTrashAlt,
 } from "react-icons/fa";
 import Carousel from "./carousel";
-import { deletePost, likePost, unlikePost, postComment } from "../actions";
+import {
+  deletePost,
+  likePost,
+  unlikePost,
+  postComment,
+  reportPost,
+} from "../actions";
 // import Image1 from "../images/image1.jpg";
 // import video from "../videos/Video.mp4";
 
@@ -41,6 +48,10 @@ const Post = ({
   const addComment = (id) => {
     // console.log(id);
     dispatch(postComment(id, comment));
+  };
+  const postReport = (id) => {
+    // console.log(id);
+    dispatch(reportPost(id));
   };
   const removePost = (id) => {
     dispatch(deletePost(id));
@@ -91,7 +102,7 @@ const Post = ({
           {post.user.username}
           <br />
           <span className="note">{`${new Date(
-            post.date
+            post.createdAt
           ).toLocaleString()}`}</span>
         </p>
       </section>
@@ -118,12 +129,22 @@ const Post = ({
         </p>
         <p className="note" style={{ fontSize: "1.4rem" }}>
           <FaGlobe /> {post.location},{" "}
-          <Link to={`/results?query=${post.location}&type=images`}>
+          <Link to={`/results?query=${post.location}&type=${t}`}>
             <span class="blue" style={{ fontWeight: "300" }}>
               {" "}
               view posts related to {post.location}
             </span>
           </Link>
+        </p>
+        <p
+          className="note"
+          style={{ fontSize: "1.4rem" }}
+          onClick={() => {
+            postReport(post._id);
+          }}
+        >
+          <FaExclamationCircle />
+          Report As Offensive
         </p>
       </section>
       <section className="comment">
@@ -168,7 +189,12 @@ const Post = ({
       </section>
       {t !== "blogs" ? <p className="sub-headings">{post.title}</p> : ""}
       <br />
-      {<p className="sub-headings">TravelTags: {post.tags}</p>}
+      <p className="sub-headings">
+        TravelTags:{" "}
+        <p className="note blue" style={{ fontSize: "1.4rem" }}>
+          {post.tags}
+        </p>
+      </p>
     </section>
   );
 };

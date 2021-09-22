@@ -22,6 +22,14 @@ const SignIn = () => {
   return (
     <section className={styles.backgroundOverlay}>
       <section className={styles.overlay}></section>
+      {window.innerWidth < 671 ? (
+        <>
+          <div className={styles.circleOne}></div>
+          <div className={styles.circleTwo}></div>
+        </>
+      ) : (
+        ""
+      )}
       <section className={styles.mainContainer}>
         {window.innerWidth >= 671 ? (
           <>
@@ -36,6 +44,9 @@ const SignIn = () => {
           onSubmit={handleSubmit}
         >
           <h1 className={`${styles.headingIn} ${styles.heading}`}>Login</h1>
+          <label htmlFor="email" className={styles.label}>
+            Email
+          </label>
           <input
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -46,6 +57,9 @@ const SignIn = () => {
             placeholder="Enter Your Email"
           />
           <section className={styles.inputIn} style={{ position: "relative" }}>
+            <label className={styles.label} htmlFor="password">
+              Password
+            </label>
             <label
               className={styles.eye}
               onClick={() => {
@@ -65,7 +79,7 @@ const SignIn = () => {
               placeholder="Enter Your Password"
             />
           </section>
-          <button type="submit" className={styles.button}>
+          <button type="submit" className={`buttonSubmit ${styles.button}`}>
             Login
           </button>
           <p className={styles.note}>

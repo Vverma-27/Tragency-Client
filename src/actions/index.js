@@ -24,6 +24,8 @@ import {
   INFINITE_POSTS_LOAD_SUCCESS,
   INFINITE_POSTS_LOAD_FAIL,
   POSTS_LOADING,
+  POSTS_REPORT_UPDATE_SUCCESS,
+  POSTS_REPORT_UPDATE_FAIL,
 } from "./types";
 import { auth, postsRoute } from "../apis";
 
@@ -163,6 +165,20 @@ export const likePost = (id) => async (dispatch) => {
     const errors = e.response.data.errors;
     errors.forEach((err) => dispatch(setAlert(err.msg, "error")));
     dispatch({ type: POSTS_LIKE_UPDATE_FAIL });
+  }
+};
+
+export const reportPost = (id) => async (dispatch) => {
+  try {
+    const {
+      data: { reports },
+    } = await postsRoute.put(`/report/${id}`);
+    dispatch(setAlert("Post reported successfully!", "success"));
+    dispatch({ type: POSTS_REPORT_UPDATE_SUCCESS, payload: { id, reports } });
+  } catch (e) {
+    const errors = e.response.data.errors;
+    errors.forEach((err) => dispatch(setAlert(err.msg, "error")));
+    dispatch({ type: POSTS_REPORT_UPDATE_FAIL });
   }
 };
 

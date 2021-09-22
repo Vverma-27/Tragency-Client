@@ -12,6 +12,8 @@ import {
   INFINITE_POSTS_LOAD_SUCCESS,
   INFINITE_POSTS_LOAD_FAIL,
   POSTS_LOADING,
+  POSTS_REPORT_UPDATE_SUCCESS,
+  POSTS_REPORT_UPDATE_FAIL,
 } from "../actions/types";
 const initialState = { posts: [], loading: true, hasMore: true };
 const postsReducer = (state = initialState, action) => {
@@ -43,6 +45,15 @@ const postsReducer = (state = initialState, action) => {
         ),
       };
     case POSTS_LIKE_UPDATE_FAIL:
+      return { ...state };
+    case POSTS_REPORT_UPDATE_SUCCESS:
+      return {
+        ...state,
+        posts: state.posts.map((post) =>
+          post._id === payload.id ? { ...post, reports: payload.reports } : post
+        ),
+      };
+    case POSTS_REPORT_UPDATE_FAIL:
       return { ...state };
     case POST_DELETE_SUCCESS:
       return {

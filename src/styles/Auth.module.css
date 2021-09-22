@@ -20,9 +20,9 @@
     border-radius: 4rem;
     height: 80%;
     width: 80%;
-    background: #161616;
-    overflow: hidden;
+    background: rgba(22, 22, 22, 0.84);
     z-index: 7;
+    backdrop-filter: blur(0.5rem);
 }
 
 .overlay2 {
@@ -37,13 +37,10 @@
     top: 1rem;
     z-index: 10;
     text-align: center;
-    right: 0;
+    left: 50%;
     height: 100%;
-    width: 100%;
-}
-
-.formContainerIn {
-    top: 4rem;
+    width: 90%;
+    transform: translateX(-50%);
 }
 
 .heading {
@@ -66,24 +63,55 @@
     width: 60%;
 }
 
+.circleOne {
+    position: absolute;
+    top: 4vh;
+    left: 4vw;
+    width: 15vw;
+    height: 15vw;
+    background: linear-gradient(to right top, #1845ad, #23a2f6);
+    border-radius: 50%;
+}
+
+.circleTwo {
+    position: absolute;
+    bottom: 4vh;
+    right: 4vw;
+    width: 15vw;
+    height: 15vw;
+    background: linear-gradient(to left bottom, #ff512f, #f09819);
+    border-radius: 50%;
+}
+
 .input {
-    width: 90%;
+    width: 100%;
     color: #fff;
     background: rgba(196, 196, 196, 0.2);
     padding: 2rem;
-    font-size: 3.5rem;
+    font-size: 2.4rem;
     border-radius: 0.3rem;
     margin-bottom: 4vh;
 }
 
 .inputIn {
-    margin-bottom: 12vh;
+    margin-bottom: 8vh;
+}
+
+input,
+textarea {
+    background: none;
+    border: none;
+    box-sizing: border-box;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
 }
 
 .button {
-    width: 98%;
+    width: 100%;
     color: #fff;
-    background: #1b1b62 !important;
     text-transform: capitalize;
     padding: 2rem;
     font-size: 4rem;
@@ -92,11 +120,15 @@
 
 .eye {
     position: absolute;
-    top: 50%;
-    right: 5rem;
+    top: 70%;
+    right: 2rem;
     font-size: 3rem;
     transform: translateY(-50%);
-    color: #1b1b62;
+    color: #6c63ff;
+}
+
+.signup .input {
+    margin-bottom: 1vh;
 }
 
 .note {
@@ -105,11 +137,30 @@
     font-size: 2rem;
 }
 
-@media only screen and (min-width: 670px) {
+.label {
+    font-size: 1.6rem;
+    /* display: block; */
+    display: inline-block;
+    width: 100%;
+    text-align: start;
+    font-weight: 800;
+    margin-bottom: 1vh;
+}
+
+@media only screen and (min-width: 671px) {
     .formContainer {
         width: 40%;
+        left: initial;
         right: 2rem;
         text-align: start;
+        transform: none;
+    }
+    .mainContainer {
+        overflow: hidden;
+        backdrop-filter: none;
+    }
+    .label {
+        font-size: 1rem;
     }
     .heading {
         margin: 0 0 1.5rem 0;
@@ -121,10 +172,15 @@
         font-size: 2rem;
     }
     .eye {
-        right: 2rem;
         font-size: 2rem;
     }
     .note {
         font-size: 1.3rem;
+    }
+    .headingIn {
+        margin-bottom: 8vh;
+    }
+    .inputIn {
+        margin-bottom: 6vh;
     }
 }

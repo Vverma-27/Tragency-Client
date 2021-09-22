@@ -31,11 +31,15 @@ const PostForm = () => {
     console.log(files);
     const location = `${country}, ${region}`;
     const content = blog;
-    // const formData = { location, content, title: caption, type, tags, files };
     const travelTags = tags
-      .replaceAll("#", " ")
-      .replaceAll("  ", " ")
-      .replaceAll(" ", " #");
+      .split(" ")
+      .map((word) => {
+        return word !== "" ? `#${word}` : null;
+      })
+      .join(" ")
+      .replaceAll(" ", "")
+      .replaceAll("#", " #")
+      .trim();
     const formData = new FormData();
     formData.append("location", location);
     formData.append("content", content);

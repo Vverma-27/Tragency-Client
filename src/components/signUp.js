@@ -36,6 +36,14 @@ const SignUp = () => {
   return (
     <section className={styles.backgroundOverlay}>
       <section className={styles.overlay}></section>
+      {window.innerWidth < 671 ? (
+        <>
+          <div className={styles.circleOne}></div>
+          <div className={styles.circleTwo}></div>
+        </>
+      ) : (
+        ""
+      )}
       <section className={styles.mainContainer}>
         {window.innerWidth >= 671 ? (
           <>
@@ -45,8 +53,14 @@ const SignUp = () => {
         ) : (
           ""
         )}
-        <form className={styles.formContainer} onSubmit={handleSubmit}>
+        <form
+          className={`${styles.formContainer} ${styles.signup}`}
+          onSubmit={handleSubmit}
+        >
           <h1 className={styles.heading}>Signup</h1>
+          <label htmlFor="text" className={styles.label}>
+            Username
+          </label>
           <input
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -56,6 +70,9 @@ const SignUp = () => {
             name="text"
             placeholder="Enter Your Username"
           />
+          <label htmlFor="email" className={styles.label}>
+            Email
+          </label>
           <input
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -65,7 +82,7 @@ const SignUp = () => {
             name="email"
             placeholder="Enter Your Email"
           />
-          <section style={{ position: "relative", marginBottom: "4vh" }}>
+          <section style={{ position: "relative", marginBottom: "1vh" }}>
             <label
               className={styles.eye}
               onClick={() => {
@@ -73,6 +90,9 @@ const SignUp = () => {
               }}
             >
               <FaEye />
+            </label>
+            <label className={styles.label} htmlFor="password">
+              Password
             </label>
             <input
               style={{ marginBottom: "0" }}
@@ -85,7 +105,7 @@ const SignUp = () => {
               placeholder="Enter Your Password"
             />
           </section>
-          <section style={{ position: "relative", marginBottom: "4vh" }}>
+          <section style={{ position: "relative", marginBottom: "2vh" }}>
             <label
               className={styles.eye}
               onClick={() => {
@@ -93,6 +113,9 @@ const SignUp = () => {
               }}
             >
               <FaEye />
+            </label>
+            <label className={styles.label} htmlFor="confirm_pass">
+              Confirm Password
             </label>
             <input
               style={{ marginBottom: "0" }}
@@ -105,7 +128,7 @@ const SignUp = () => {
               placeholder="Confirm Your Password"
             />
           </section>
-          <button type="submit" className={styles.button}>
+          <button type="submit" className={`buttonSubmit ${styles.button}`}>
             Signup
           </button>
           <p className={styles.note}>
