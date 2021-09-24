@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { useHistory } from "react-router-dom";
+import useQuery from "./useQuery";
 import styles from "../styles/SearchBar.module.css";
 
 const SearchBar = () => {
   const history = useHistory();
   const [term, setTerm] = useState("");
+  const query = useQuery();
+  const type = !query.get("type") ? "images" : query.get("type");
   const handleClick = (query) =>
-    history.push(`/results?query=${query}&type=images`);
+    history.push(`/results?query=${query}&type=${type}`);
   const onSubmit = (e) => {
     e.preventDefault();
     setTerm("");

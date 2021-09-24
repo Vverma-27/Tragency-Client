@@ -80,12 +80,16 @@ const PostForm = () => {
             <textarea
               required={true}
               name="blog"
-              class={styles.input}
+              class={`${styles.input} ${styles.textarea}`}
               cols="50"
-              rows="60"
+              rows="50"
               value={blog}
               onChange={(e) => setBlog(e.target.value)}
-              style={{ padding: "1vh 1vw", width: "90%" }}
+              style={{
+                padding: "1vh 1vw",
+                width: "90%",
+                height: "100% ",
+              }}
             ></textarea>
           </section>
         </>
@@ -206,13 +210,13 @@ const PostForm = () => {
         </label>
         <br />
         <CountryDropdown
-          required={true}
+          required={type !== "blogs"}
           value={country}
           onChange={(val) => setCountry(val)}
         />{" "}
         &nbsp;&nbsp;
         <RegionDropdown
-          required={true}
+          required={type !== "blogs"}
           country={country}
           value={region}
           onChange={(val) => setRegion(val)}

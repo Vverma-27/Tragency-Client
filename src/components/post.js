@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { isEqual } from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 import {
   FaComment,
-  FaCommentMedical,
   FaExclamationCircle,
   FaGlobe,
   FaPlaneDeparture,
@@ -12,13 +11,7 @@ import {
   FaTrashAlt,
 } from "react-icons/fa";
 import Carousel from "./carousel";
-import {
-  deletePost,
-  likePost,
-  unlikePost,
-  postComment,
-  reportPost,
-} from "../actions";
+import { deletePost, likePost, unlikePost, reportPost } from "../actions";
 // import Image1 from "../images/image1.jpg";
 // import video from "../videos/Video.mp4";
 
@@ -33,7 +26,7 @@ const Post = ({
   location,
 }) => {
   // const [reload, setReload] = useState(false);
-  const [comment, setComment] = useState("");
+  // const [comment, setComment] = useState("");
   const loggedInUserId = useSelector((state) => state.auth.user._id, isEqual);
   // console.log(loggedInUserId);
   const dispatch = useDispatch();
@@ -45,10 +38,10 @@ const Post = ({
     if (!liked) dispatch(likePost(id));
     else dispatch(unlikePost(id));
   };
-  const addComment = (id) => {
-    // console.log(id);
-    dispatch(postComment(id, comment));
-  };
+  // const addComment = (id) => {
+  //   // console.log(id);
+  //   dispatch(postComment(id, comment));
+  // };
   const postReport = (id) => {
     // console.log(id);
     dispatch(reportPost(id));
@@ -71,14 +64,23 @@ const Post = ({
         return (
           <p
             className="sub-headings"
-            style={{ fontSize: "1.3rem", lineHeight: "3rem" }}
+            style={{
+              fontSize: "1.3rem",
+              lineHeight: "3rem",
+              whiteSpace: "break-spaces",
+            }}
           >
             {post.content}
           </p>
         );
       case "vlogs":
         return (
-          <video src={post.content} controls="controls" class="post-media" />
+          <video
+            src={post.content}
+            controls="controls"
+            class="post-media"
+            onLoad={(e) => console.log(e)}
+          />
         );
       default:
         return;
@@ -146,46 +148,6 @@ const Post = ({
           <FaExclamationCircle />
           Report As Offensive
         </p>
-      </section>
-      <section className="comment">
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            addComment(post._id);
-            setComment("");
-          }}
-        >
-          <textarea
-            name="comment"
-            id="comment"
-            cols="30"
-            rows="10"
-            placeholder="Add a new travelcussion"
-            value={comment}
-            onChange={(e) => {
-              setComment(e.target.value);
-            }}
-            style={{
-              border: "1px solid black",
-              borderRadius: "0.3rem",
-              width: "95%",
-              height: "10vh",
-            }}
-          ></textarea>
-          <button
-            // className="note"
-            type="submit"
-            style={{
-              fontSize: "1.4rem",
-              padding: "2rem",
-              background: "#3464ac",
-              borderRadius: "1rem",
-            }}
-          >
-            <FaCommentMedical />
-            Add a new travelcussion
-          </button>
-        </form>
       </section>
       {t !== "blogs" ? <p className="sub-headings">{post.title}</p> : ""}
       <br />

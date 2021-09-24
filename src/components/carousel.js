@@ -31,14 +31,18 @@ const Carousel = ({ images }) => {
   };
   return (
     <section className={styles.carouselContainer}>
-      <i onClick={() => changeActive(-1)}>
-        <FaArrowCircleLeft />
-      </i>
+      {images.length > 1 ? (
+        <>
+          <i onClick={() => changeActive(-1)}>
+            <FaArrowCircleLeft />
+          </i>
+          <i onClick={() => changeActive(1)}>
+            {" "}
+            <FaArrowCircleRight />
+          </i>
+        </>
+      ) : null}
       {renderedCarousel}
-      <i onClick={() => changeActive(1)}>
-        {" "}
-        <FaArrowCircleRight />
-      </i>
     </section>
   );
 };

@@ -14,7 +14,7 @@ body,
     overflow-x: hidden;
     font-family: "Open Sans", sans-serif;
     height: 100%;
-    color: #fff;
+    color: #000;
 }
 
 button {
@@ -23,7 +23,7 @@ button {
 }
 
 body {
-    background: linear-gradient(to bottom, #d8e1fe, #3464ac) no-repeat;
+    background: #eff6fa;
 }
 
 .logo {
@@ -78,11 +78,12 @@ a:active {
 }
 
 .container {
-    background: #3464ac;
+    background: #fafafa;
+    border: 1px solid;
     border-radius: 1.1rem;
     padding: 0.5vh 1vw;
     position: relative;
-    color: #fff;
+    color: #000;
 }
 
 .out_container {
@@ -120,7 +121,7 @@ a:active {
 }
 
 .likes_active {
-    color: #9ce085;
+    color: blue;
     font-weight: 600;
 }
 
@@ -131,7 +132,7 @@ a:active {
 }
 
 .blue {
-    color: #9ce085 !important;
+    color: blue !important;
     font-weight: 800;
 }
 

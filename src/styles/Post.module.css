@@ -37,8 +37,8 @@ textarea {
 
 .input,
 select {
-    background: #426fb3;
-    color: #fff;
+    background: #d8e1fe !important;
+    color: #000 !important;
     border-radius: 0.3rem;
     padding: 1vh 2vw;
     width: 20vw;
@@ -48,15 +48,19 @@ select {
     min-width: 30vw;
 }
 
+.textarea {
+    height: auto !important;
+}
+
 select {
     border-radius: 10rem;
     /* height: 4vh; */
 }
 
 #fieldFile section {
-    background: #426fb3;
+    background: #d8e1fe !important;
     padding: 1vh 2vw;
-    color: #fff;
+    color: #000 !important;
     position: absolute;
     top: 0vh;
     left: 9vw;

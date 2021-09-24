@@ -39,19 +39,20 @@
     text-align: center;
     left: 50%;
     height: 100%;
+    color: #fff;
     width: 90%;
     transform: translateX(-50%);
 }
 
 .heading {
-    font-size: 7.8rem;
-    margin: 0 0 12vh 0;
+    font-size: 5.8rem;
+    margin: 0 0 1vh;
     text-align: center;
     color: rgba(255, 255, 255, 0.85);
 }
 
 .headingIn {
-    margin: 0 0 12vh 0 !important;
+    margin: 0 0 6vh 0 !important;
 }
 
 .image {
@@ -87,14 +88,14 @@
     width: 100%;
     color: #fff;
     background: rgba(196, 196, 196, 0.2);
-    padding: 2rem;
+    padding: 2vh 2vw;
     font-size: 2.4rem;
     border-radius: 0.3rem;
     margin-bottom: 4vh;
 }
 
 .inputIn {
-    margin-bottom: 8vh;
+    margin-bottom: 6vh;
 }
 
 input,
@@ -113,7 +114,7 @@ textarea:focus {
     width: 100%;
     color: #fff;
     text-transform: capitalize;
-    padding: 2rem;
+    padding: 2vh 2vw;
     font-size: 4rem;
     border-radius: 0.3rem;
 }
@@ -162,9 +163,6 @@ textarea:focus {
     .label {
         font-size: 1rem;
     }
-    .heading {
-        margin: 0 0 1.5rem 0;
-    }
     .input {
         font-size: 1.5rem;
     }
@@ -176,11 +174,5 @@ textarea:focus {
     }
     .note {
         font-size: 1.3rem;
-    }
-    .headingIn {
-        margin-bottom: 8vh;
-    }
-    .inputIn {
-        margin-bottom: 6vh;
     }
 }
