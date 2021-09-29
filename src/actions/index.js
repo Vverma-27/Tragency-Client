@@ -26,8 +26,13 @@ import {
   POSTS_LOADING,
   POSTS_REPORT_UPDATE_SUCCESS,
   POSTS_REPORT_UPDATE_FAIL,
+  LOAD_CHAT_ROOMS,
+  LOAD_ROOM,
+  POST_MESSAGE,
+  LOAD_DIARY,
+  UPDATE_DIARY,
 } from "./types";
-import { auth, postsRoute } from "../apis";
+import { auth, postsRoute, chatsRoute, diaryRoute } from "../apis";
 
 export const setAlert = (msg, alertType) => {
   const id = v4();
@@ -288,3 +293,68 @@ export const getInfinitePosts =
     }
   };
 export const postsLoading = () => ({ type: POSTS_LOADING });
+
+export const loadRooms = () => async (dispatch) => {
+  const {
+    data: { chatRooms: rooms },
+  } = await chatsRoute.get("/");
+  dispatch({ type: LOAD_CHAT_ROOMS, payload: { rooms } });
+};
+export const loadRoom = (id) => async (dispatch) => {
+  // console.log(id);
+  try {
+    const {
+      data: { chatRoom: room },
+    } = await chatsRoute.get(`/${id}`);
+    dispatch({ type: LOAD_ROOM, payload: { room } });
+  } catch (e) {
+    const errors = e.response.data.errors;
+    errors.forEach((err) => dispatch(setAlert(err.msg, "error")));
+  }
+};
+export const sendMessage =
+  ({ id, message, username, avatar, date, user }) =>
+  async (dispatch) => {
+    // console.log(message, username, avatar, user, date);
+    try {
+      const {
+        data: { chatRoom: room },
+      } = await chatsRoute.put(`/message/${id}`, {
+        message,
+        username,
+        avatar,
+        user,
+        date,
+      });
+      dispatch({ type: POST_MESSAGE, payload: { room } });
+    } catch (e) {
+      const errors = e.response.data.errors;
+      errors.forEach((err) => dispatch(setAlert(err.msg, "error")));
+    }
+  };
+
+export const loadDiary = (date) => async (dispatch) => {
+  try {
+    const {
+      data: { diary },
+    } = await diaryRoute.get(`/${date}`);
+    // console.log(diary);
+    dispatch({ type: LOAD_DIARY, payload: { diary } });
+  } catch (e) {
+    const errors = e.response.data.errors;
+    errors.forEach((err) => dispatch(setAlert(err.msg, "error")));
+  }
+};
+
+export const updateDiary = (newDiary) => async (dispatch) => {
+  try {
+    const {
+      data: { diary },
+    } = await diaryRoute.post(`/${newDiary.published}`, newDiary);
+    console.log(diary);
+    dispatch({ type: UPDATE_DIARY, payload: { diary } });
+  } catch (e) {
+    const errors = e.response.data.errors;
+    errors.forEach((err) => dispatch(setAlert(err.msg, "error")));
+  }
+};

@@ -1,20 +1,20 @@
 import React from "react";
-import PostForm from "./postForm";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import styles from "../styles/Post.module.css";
+import RoomForm from "./roomForm";
 
-const PostContent = () => {
+const CreateRoom = () => {
   return (
     <section style={{ width: "95%", margin: "2vh auto" }}>
       <ToastContainer></ToastContainer>
       <section className={`container ${styles.container}`}>
         {/* <Sidebar /> */}
-        <h1 class={styles.heading}>Post Cool Content</h1>
-        <PostForm />
+        <h1 class={styles.heading}>Create new chat room</h1>
+        <RoomForm />
       </section>
     </section>
   );
 };
 
-export default PostContent;
+export default CreateRoom;

@@ -16,6 +16,9 @@ import Comments from "./comments";
 import "../styles/global.css";
 import SignIn from "./signIn";
 import SignUp from "./signUp";
+import ChatRoom from "./chatRoom";
+import CreateRoom from "./createRoom";
+import MainDiary from "./diary";
 
 const App = ({ loadUser, isAuthenticated }) => {
   useEffect(() => {
@@ -27,14 +30,6 @@ const App = ({ loadUser, isAuthenticated }) => {
       history.push("/feed");
     }
   }, [loadUser, isAuthenticated]);
-  // useBottomScrollListener(
-  //   () => {
-  //     console.log("i am at bottom");
-  //   },
-  //   {
-  //     offset: 300,
-  //   }
-  // );
   return (
     <section style={{ height: "100%" }}>
       <Router history={history}>
@@ -65,6 +60,17 @@ const App = ({ loadUser, isAuthenticated }) => {
             )}
           />
           <Route
+            path={`/create/room`}
+            exact
+            component={() => (
+              <>
+                <Header />
+                <CreateRoom />
+                <Footer />
+              </>
+            )}
+          />
+          <Route
             path={`/results`}
             exact
             component={() => (
@@ -86,7 +92,7 @@ const App = ({ loadUser, isAuthenticated }) => {
               </>
             )}
           />
-          {/* <Route
+          <Route
             path={`/diary`}
             exact
             component={() => (
@@ -96,7 +102,7 @@ const App = ({ loadUser, isAuthenticated }) => {
                 <Footer />
               </>
             )}
-          /> */}
+          />
           <Route
             path={`/market`}
             exact
@@ -108,13 +114,24 @@ const App = ({ loadUser, isAuthenticated }) => {
               </>
             )}
           />
-          <Route
+          {/* <Route
             path={`/diary`}
             exact
             component={() => (
               <>
                 <Header />
                 <Coming />
+                <Footer />
+              </>
+            )}
+          /> */}
+          <Route
+            path={`/chat`}
+            exact
+            component={() => (
+              <>
+                <Header />
+                <ChatRoom />
                 <Footer />
               </>
             )}

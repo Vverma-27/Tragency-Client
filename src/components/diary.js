@@ -1,21 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaBook } from "react-icons/fa";
-import { ToastContainer, toast } from "react-toastify";
+import { useSelector, useDispatch } from "react-redux";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
+import { loadDiary, updateDiary } from "../actions";
 import styles from "../styles/Diary.module.css";
 
 const MainDiary = () => {
-  const [diary, setDiary] = useState();
-  const [title, setTitle] = useState("Enter Your Title");
+  const daysDiary = useSelector(({ diary }) => diary);
+  const dispatch = useDispatch();
+  const getDiary = (date) => dispatch(loadDiary(date));
+  const uploadDiary = (diary) => dispatch(updateDiary(diary));
+  const [diary, setDiary] = useState(daysDiary.content || "");
+  const [title, setTitle] = useState(
+    daysDiary.title || "Enter Your Title Here"
+  );
   const [file, setFile] = useState("");
-  const [date, setDate] = useState();
+  const [date, setDate] = useState(daysDiary.published || "");
+  useEffect(() => {
+    setDiary(daysDiary.content || "");
+    setTitle(daysDiary.title || "Enter Your Title Here");
+    setDate(daysDiary.published || "");
+  }, [daysDiary]);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const diaryobj = { content: diary, published: date, title };
+    console.log(diaryobj);
+    uploadDiary(diaryobj);
+  };
   const showFile = async (e) => {
     e.preventDefault();
     if (!e.target.files) return;
-    if (e.target.files[0].name.split(".")[1] === "docx") {
-      toast.warn("Cannot Read contents of word file");
-      return;
-    }
     const reader = new FileReader();
     reader.onload = async (e) => {
       const text = e.target.result;
@@ -58,7 +73,7 @@ const MainDiary = () => {
           type="file"
           id={styles.file}
           class={styles.input}
-          accept=".txt, .docx"
+          accept=".txt"
           value={file}
           onChange={(e) => {
             setFile(e.target.value);
@@ -76,23 +91,28 @@ const MainDiary = () => {
           style={{ border: "none" }}
           value={title}
           onChange={(e) => setTitle(e.target.value)}
+          required={true}
         />{" "}
         <br />
         <input
           className="note"
-          type="datetime-local"
+          type="date"
           value={date}
-          onChange={(e) => setDate(e.target.value)}
+          onChange={(e) => {
+            getDiary(e.target.value);
+            setDate(e.target.value);
+          }}
           style={{
             fontSize: "1.8rem",
             marginTop: "-2rem",
             fontFamily: `"Patrick Hand", cursive`,
           }}
+          required={true}
         />
         <br />
         <hr />
         <textarea
-          className="note"
+          className="note diaryArea"
           cols="30"
           rows="30"
           style={{
@@ -104,9 +124,10 @@ const MainDiary = () => {
           }}
           placeholder="Your diary starts here"
           value={diary}
+          required={true}
           onChange={(e) => setDiary(e.target.value)}
         ></textarea>
-        <button type="submit" class={styles.button}>
+        <button type="submit" class={styles.button} onClick={handleSubmit}>
           save
         </button>
       </form>

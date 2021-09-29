@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import {
+  FaCommentDots,
   FaImage,
   FaPhotoVideo,
   FaShoppingCart,
@@ -83,6 +84,18 @@ const Sidebar = ({ loadUser, username, avatar }) => {
           class={`${styles.option} ${styles[url === "/post" ? "active" : ""]}`}
         >
           <FaVideo /> Post Content
+        </section>
+      </section>
+      <section
+        className={`${styles.parent} ${
+          styles[url === "/chat" ? "active" : ""]
+        }`}
+        onClick={() => handleClick(`/chat`)}
+      >
+        <section
+          class={`${styles.option} ${styles[url === "/chat" ? "active" : ""]}`}
+        >
+          <FaCommentDots /> Chat Rooms
         </section>
       </section>
       <section className={styles.parent} onClick={() => handleClick(`/market`)}>

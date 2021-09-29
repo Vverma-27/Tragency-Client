@@ -153,9 +153,9 @@ const Post = ({
       <br />
       <p className="sub-headings">
         TravelTags:{" "}
-        <p className="note blue" style={{ fontSize: "1.4rem" }}>
+        <span className="note blue" style={{ fontSize: "1.4rem" }}>
           {post.tags}
-        </p>
+        </span>
       </p>
     </section>
   );

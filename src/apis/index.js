@@ -6,3 +6,10 @@ export const auth = axios.create({
 export const postsRoute = axios.create({
   baseURL: "/api/post",
 });
+export const chatsRoute = axios.create({
+  baseURL: "/api/rooms",
+});
+export const diaryRoute = axios.create({
+  baseURL: "/api/diary",
+});
+
