@@ -8,7 +8,8 @@ import Footer from "./footer";
 import Search from "./searchResults";
 import PostContent from "./postContent";
 import Home from "./home";
-// import MainDiary from "./diary";
+import Profile from "./Profile";
+import MainDiary from "./diary";
 import Coming from "./coming";
 import history from "../history";
 import Alert from "./alert";
@@ -18,7 +19,6 @@ import SignIn from "./signIn";
 import SignUp from "./signUp";
 import ChatRoom from "./chatRoom";
 import CreateRoom from "./createRoom";
-import MainDiary from "./diary";
 
 const App = ({ loadUser, isAuthenticated }) => {
   useEffect(() => {
@@ -55,6 +55,17 @@ const App = ({ loadUser, isAuthenticated }) => {
               <>
                 <Header />
                 <Comments />
+                <Footer />
+              </>
+            )}
+          />
+          <Route
+            path={`/profile/:id`}
+            exact
+            component={() => (
+              <>
+                <Header />
+                <Profile />
                 <Footer />
               </>
             )}

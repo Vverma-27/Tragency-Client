@@ -98,16 +98,18 @@ const Post = ({
           <FaTrashAlt />
         </i>
       ) : null}
-      <section className="post-info">
-        <img src={post.user.avatar} alt="Profile" className="profile-photo" />
-        <p className="heading_main" style={{ fontSize: "1.3rem" }}>
-          {post.user.username}
-          <br />
-          <span className="note">{`${new Date(
-            post.createdAt
-          ).toLocaleString()}`}</span>
-        </p>
-      </section>
+      <Link to={`profile/${post.user._id}`}>
+        <section className="post-info">
+          <img src={post.user.avatar} alt="Profile" className="profile-photo" />
+          <p className="heading_main" style={{ fontSize: "1.3rem" }}>
+            {post.user.username}
+            <br />
+            <span className="note">{`${new Date(
+              post.createdAt
+            ).toLocaleString()}`}</span>
+          </p>
+        </section>
+      </Link>
       {t === "blogs" ? <p className="heading_main">{post.title}</p> : ""}
       <br />
       {renderedPost()}
