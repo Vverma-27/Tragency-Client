@@ -12,10 +12,8 @@ const Profile = () => {
       element = element.parentElement;
     }
     const className = `${styles.active}`;
-    if (prevRef.current) {
-      prevRef.current.classList.remove(className);
-      // console.log(prevRef.current.classList);
-    }
+    prevRef.current.classList.remove(className);
+    // console.log(prevRef.current.classList);
     element.classList.add(className);
     prevRef.current = element;
   };
@@ -57,6 +55,7 @@ const Profile = () => {
       <div className={styles["post__container"]}>
         <div className={styles["post__icon--box"]}>
           <div
+            ref={prevRef}
             onClickCapture={iconChangeHandler}
             className={`${styles.icon} ${styles.active}`}
           >
