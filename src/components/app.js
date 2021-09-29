@@ -8,6 +8,7 @@ import Footer from "./footer";
 import Search from "./searchResults";
 import PostContent from "./postContent";
 import Home from "./home";
+import Profile from "./Profile";
 // import MainDiary from "./diary";
 import Coming from "./coming";
 import history from "../history";
@@ -65,6 +66,17 @@ const App = ({ loadUser, isAuthenticated }) => {
             )}
           />
           <Route
+            path={`/profile/:id`}
+            exact
+            component={() => (
+              <>
+                <Header />
+                <Profile />
+                <Footer />
+              </>
+            )}
+          />
+          <Route
             path={`/results`}
             exact
             component={() => (
@@ -86,7 +98,7 @@ const App = ({ loadUser, isAuthenticated }) => {
               </>
             )}
           />
-          {/* <Route
+          <Route
             path={`/diary`}
             exact
             component={() => (
@@ -96,7 +108,7 @@ const App = ({ loadUser, isAuthenticated }) => {
                 <Footer />
               </>
             )}
-          /> */}
+          />
           <Route
             path={`/market`}
             exact
@@ -108,7 +120,7 @@ const App = ({ loadUser, isAuthenticated }) => {
               </>
             )}
           />
-          <Route
+          {/* <Route
             path={`/diary`}
             exact
             component={() => (
@@ -118,7 +130,7 @@ const App = ({ loadUser, isAuthenticated }) => {
                 <Footer />
               </>
             )}
-          />
+          /> */}
         </Switch>
       </Router>
     </section>
