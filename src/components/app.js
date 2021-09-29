@@ -8,6 +8,7 @@ import Footer from "./footer";
 import Search from "./searchResults";
 import PostContent from "./postContent";
 import Home from "./home";
+import Profile from "./Profile";
 // import MainDiary from "./diary";
 import Coming from "./coming";
 import history from "../history";
@@ -60,6 +61,17 @@ const App = ({ loadUser, isAuthenticated }) => {
               <>
                 <Header />
                 <Comments />
+                <Footer />
+              </>
+            )}
+          />
+          <Route
+            path={`/profile/:id`}
+            exact
+            component={() => (
+              <>
+                <Header />
+                <Profile />
                 <Footer />
               </>
             )}
