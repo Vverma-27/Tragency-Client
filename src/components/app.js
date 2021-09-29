@@ -9,7 +9,7 @@ import Search from "./searchResults";
 import PostContent from "./postContent";
 import Home from "./home";
 import Profile from "./Profile";
-// import MainDiary from "./diary";
+import MainDiary from "./diary";
 import Coming from "./coming";
 import history from "../history";
 import Alert from "./alert";
