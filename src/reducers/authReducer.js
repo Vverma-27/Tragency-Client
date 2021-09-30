@@ -7,6 +7,7 @@ import {
   USER_LOAD_FAIL,
   USER_LOGOUT_FAIL,
   USER_LOGOUT_SUCCESS,
+  UPDATE_PROFILE,
 } from "../actions/types";
 const initialState = {
   isAuthenticated: false,
@@ -66,6 +67,11 @@ const authReducer = (state = initialState, action) => {
         ...state,
         isAuthenticated: true,
         loading: false,
+      };
+    case UPDATE_PROFILE:
+      return {
+        ...state,
+        user: payload.user,
       };
     default:
       return state;

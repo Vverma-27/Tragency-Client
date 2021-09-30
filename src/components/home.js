@@ -66,7 +66,11 @@ const Feed = ({
               location=""
             />
           </section>
-        )) || <Post key={i} t={t} post={post} />
+        )) || (
+          <section key={i}>
+            <Post t={t} post={post} />
+          </section>
+        )
   );
   const renderedComponents = (
     <section

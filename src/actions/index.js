@@ -31,8 +31,17 @@ import {
   POST_MESSAGE,
   LOAD_DIARY,
   UPDATE_DIARY,
+  ERROR_DIARY,
+  LOAD_PROFILE,
+  UPDATE_PROFILE,
 } from "./types";
-import { auth, postsRoute, chatsRoute, diaryRoute } from "../apis";
+import {
+  auth,
+  postsRoute,
+  chatsRoute,
+  diaryRoute,
+  profileRoute,
+} from "../apis";
 
 export const setAlert = (msg, alertType) => {
   const id = v4();
@@ -312,6 +321,23 @@ export const loadRoom = (id) => async (dispatch) => {
     errors.forEach((err) => dispatch(setAlert(err.msg, "error")));
   }
 };
+export const createRoom = (formValues) => async (dispatch) => {
+  // console.log(id);
+  try {
+    await chatsRoute.post("/", formValues);
+    dispatch(
+      setAlert(
+        "Village proposal has been sent for review! The review process may take upto 1 day",
+        "success"
+      )
+    );
+    history.push("/chat");
+    dispatch({ type: "CREATE_CHAT_ROOM" });
+  } catch (e) {
+    const errors = e.response.data.errors;
+    errors.forEach((err) => dispatch(setAlert(err.msg, "error")));
+  }
+};
 export const sendMessage =
   ({ id, message, username, avatar, date, user }) =>
   async (dispatch) => {
@@ -341,8 +367,9 @@ export const loadDiary = (date) => async (dispatch) => {
     // console.log(diary);
     dispatch({ type: LOAD_DIARY, payload: { diary } });
   } catch (e) {
-    const errors = e.response.data.errors;
-    errors.forEach((err) => dispatch(setAlert(err.msg, "error")));
+    // const errors = e.response.data.errors;
+    // errors.forEach((err) => dispatch(setAlert(err.msg, "error")));
+    dispatch({ type: ERROR_DIARY });
   }
 };
 
@@ -353,6 +380,37 @@ export const updateDiary = (newDiary) => async (dispatch) => {
     } = await diaryRoute.post(`/${newDiary.published}`, newDiary);
     console.log(diary);
     dispatch({ type: UPDATE_DIARY, payload: { diary } });
+    dispatch(setAlert("Diary Updated Successfully", "success"));
+  } catch (e) {
+    // const errors = e.response.data.errors;
+    // errors.forEach((err) => dispatch(setAlert(err.msg, "error")));
+    dispatch({ type: ERROR_DIARY });
+  }
+};
+
+export const loadProfile = (id) => async (dispatch) => {
+  try {
+    const {
+      data: { profile },
+    } = await profileRoute.get(`/user/${id}`);
+    // console.log(profile);
+    dispatch({ type: LOAD_PROFILE, payload: { profile } });
+  } catch (e) {
+    const errors = e.response.data.errors;
+    errors.forEach((err) => dispatch(setAlert(err.msg, "error")));
+  }
+};
+
+export const updateProfile = (formValues) => async (dispatch) => {
+  try {
+    const {
+      data: { profile, user },
+    } = await profileRoute.post(`/`, formValues, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    // console.log(user);
+    dispatch({ type: UPDATE_PROFILE, payload: { profile, user } });
+    dispatch(setAlert("Profile Updated Successfully", "success"));
   } catch (e) {
     const errors = e.response.data.errors;
     errors.forEach((err) => dispatch(setAlert(err.msg, "error")));

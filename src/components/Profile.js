@@ -1,10 +1,54 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
+import { connect } from "react-redux";
 import styles from "../styles/Profile.module.css";
 import { FaCamera, FaImage, FaVideo, FaTh } from "react-icons/fa";
-import image1 from "../images/image1.jpg";
+import { loadProfile, updateProfile } from "../actions";
+import history from "../history";
 
-const Profile = () => {
+const Profile = ({ profile, loggedInUserId, loadProfile, updateProfile }) => {
+  useEffect(() => {
+    loadProfile(
+      history.location.pathname.split("/")[
+        history.location.pathname.split("/").length - 1
+      ]
+    );
+  }, [loadProfile]);
+  // console.log(profile);
+  const isLoggedInUser = profile.user?._id === loggedInUserId;
+  const [username, setUsername] = useState(profile.user?.username);
+  const [image, setImage] = useState(profile.user?.avatar);
+  const [showImage, setShowImage] = useState(null);
+  const [bio, setBio] = useState(profile.bio);
+  const [type, setType] = useState("images");
+  useEffect(() => {
+    setUsername(profile.user?.username);
+    setBio(profile.bio);
+    setImage(profile.user?.avatar);
+    // return () => setShowImage(null);
+  }, [profile]);
   const prevRef = useRef(null);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!isLoggedInUser) return;
+    const formValues = new FormData();
+    formValues.append("username", username);
+    formValues.append("bio", bio);
+    formValues.append("file", image);
+    updateProfile(formValues);
+  };
+  const handleChange = (e) => {
+    // console.log(e.target.files);
+    setImage(e.target.files[0]);
+    if (!e.target.files) return;
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+
+    reader.onloadend = function (e) {
+      setShowImage(reader.result);
+    };
+    // console.log(url);
+  };
   const iconChangeHandler = (e) => {
     // console.log(e.target);
     let element = e.target;
@@ -15,12 +59,53 @@ const Profile = () => {
     prevRef.current.classList.remove(className);
     // console.log(prevRef.current.classList);
     element.classList.add(className);
+    setType(element.dataset.type);
     prevRef.current = element;
   };
+  const renderedPosts = profile.posts
+    ?.filter((post) => post.type === type)
+    .map((post, i) => (
+      <div className={styles["post__img--box"]} key={i}>
+        {type === "images" ? (
+          <img
+            className={styles["post__img"]}
+            src={`${post.content[0]}`}
+            alt="post-img"
+          />
+        ) : type === "vlogs" ? (
+          <video
+            className={styles["post__img"]}
+            src={`${post.content[0]}`}
+          ></video>
+        ) : (
+          <p
+            className="sub-headings"
+            style={{
+              fontSize: "1.3rem",
+              lineHeight: "1.7rem",
+              whiteSpace: "break-spaces",
+            }}
+          >
+            {post.content[0].split(" ").slice(0, 25).join(" ")}{" "}
+            <span class="blue">...read more</span>
+          </p>
+        )}
+      </div>
+    ));
   return (
     <div className={styles.container}>
-      <form className={styles.form} action="#">
-        <label className={styles["userImg__label"]} htmlFor="name__input">
+      <form
+        className={styles.form}
+        onSubmit={handleSubmit}
+        encType="multipart/form-data"
+      >
+        <label
+          className={styles["userImg__label"]}
+          htmlFor="name__input"
+          style={{
+            backgroundImage: `url(${showImage || image})`,
+          }}
+        >
           <FaCamera className={styles["camera__icon"]} />
         </label>
         <input
@@ -28,80 +113,70 @@ const Profile = () => {
           className={styles["userImg__input"]}
           type="file"
           accept="image/png, image/jpeg"
+          onChange={handleChange}
+          // value={image}
+          disabled={!isLoggedInUser}
         />
         <input
           className={styles["userName__input"]}
           type="text"
-          placeholder="name"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required={true}
+          disabled={!isLoggedInUser}
         />
-
         <textarea
           className={styles["userBio__input"]}
           name="Bio__input"
-          cols="30"
-          rows="10"
-        >
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quae
-          repudiandae ratione nostrum velit doloremque blanditiis sit quos illum
-          officia? Officiis adipisci voluptate odit corrupti impedit aperiam
-          doloremque dolores hic quod magnam, quo, modi, animi non nihil beatae
-          minus. Aspernatur cupiditate ullam numquam error deserunt.
-          Reprehenderit neque animi atque nisi odio.
-        </textarea>
-        <button id={styles["update__btn"]} type="submit">
-          Update profile
-        </button>
+          value={bio}
+          placeholder={isLoggedInUser ? "Enter your bio here" : ""}
+          onChange={(e) => setBio(e.target.value)}
+          disabled={!isLoggedInUser}
+        ></textarea>
+        {isLoggedInUser ? (
+          <button id={styles["update__btn"]} type="submit">
+            Update profile
+          </button>
+        ) : null}
       </form>
       <div className={styles["post__container"]}>
         <div className={styles["post__icon--box"]}>
           <div
             ref={prevRef}
             onClickCapture={iconChangeHandler}
+            data-type="images"
             className={`${styles.icon} ${styles.active}`}
           >
             <FaImage className={styles["image__icon"]} />
           </div>
-          <div onClickCapture={iconChangeHandler} className={`${styles.icon}`}>
+          <div
+            onClickCapture={iconChangeHandler}
+            className={`${styles.icon}`}
+            data-type="vlogs"
+          >
             <FaVideo className={styles["video__icon"]} />
           </div>
 
-          <div onClickCapture={iconChangeHandler} className={`${styles.icon}`}>
+          <div
+            onClickCapture={iconChangeHandler}
+            className={`${styles.icon}`}
+            data-type="blogs"
+          >
             <FaTh className={styles["grid__icon"]} />
           </div>
         </div>
 
-        <div className={styles["post__img--container"]}>
-          <div className={styles["post__img--box"]}>
-            <img className={styles["post__img"]} src={image1} alt="post-img" />
-          </div>
-          <div className={styles["post__img--box"]}>
-            <img className={styles["post__img"]} src={image1} alt="post-img" />
-          </div>
-          <div className={styles["post__img--box"]}>
-            <img className={styles["post__img"]} src={image1} alt="post-img" />
-          </div>
-          <div className={styles["post__img--box"]}>
-            <img className={styles["post__img"]} src={image1} alt="post-img" />
-          </div>
-          <div className={styles["post__img--box"]}>
-            <img className={styles["post__img"]} src={image1} alt="post-img" />
-          </div>
-          <div className={styles["post__img--box"]}>
-            <img className={styles["post__img"]} src={image1} alt="post-img" />
-          </div>
-          <div className={styles["post__img--box"]}>
-            <img className={styles["post__img"]} src={image1} alt="post-img" />
-          </div>
-          <div className={styles["post__img--box"]}>
-            <img className={styles["post__img"]} src={image1} alt="post-img" />
-          </div>
-          <div className={styles["post__img--box"]}>
-            <img className={styles["post__img"]} src={image1} alt="post-img" />
-          </div>
-        </div>
+        <div className={styles["post__img--container"]}>{renderedPosts}</div>
       </div>
     </div>
   );
 };
 
-export default Profile;
+const mapStateToProps = (state) => ({
+  profile: state.profile,
+  loggedInUserId: state.auth.user?._id,
+});
+
+export default connect(mapStateToProps, { loadProfile, updateProfile })(
+  Profile
+);

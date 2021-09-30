@@ -12,4 +12,6 @@ export const chatsRoute = axios.create({
 export const diaryRoute = axios.create({
   baseURL: "/api/diary",
 });
-
+export const profileRoute = axios.create({
+  baseURL: "/api/profile",
+});

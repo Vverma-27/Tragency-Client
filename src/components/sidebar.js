@@ -7,13 +7,13 @@ import {
   FaTh,
   FaVideo,
 } from "react-icons/fa";
-import { useHistory, useRouteMatch } from "react-router-dom";
+import { useHistory, useRouteMatch, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { loadUser } from "../actions";
 import useQuery from "./useQuery";
 import styles from "../styles/Side.module.css";
 
-const Sidebar = ({ loadUser, username, avatar }) => {
+const Sidebar = ({ loadUser, username, avatar, id }) => {
   const query = useQuery();
   const { url } = useRouteMatch();
   const q = !query.get("query") ? "Ladakh" : query.get("query");
@@ -27,17 +27,20 @@ const Sidebar = ({ loadUser, username, avatar }) => {
   }, [loadUser]);
   return (
     <aside id={styles.sidebar}>
-      <section id={styles.user_info}>
-        <img
-          src={avatar}
-          alt="Profile"
-          className="profile-photo"
-          style={{ margin: "0.5rem" }}
-        />
-        <p className="heading_main" style={{ fontSize: "1.1rem" }}>
-          @{username}
-        </p>
-      </section>
+      <Link to={`profile/${id}`}>
+        {" "}
+        <section id={styles.user_info}>
+          <img
+            src={avatar}
+            alt="Profile"
+            className="profile-photo"
+            style={{ margin: "0.5rem" }}
+          />
+          <p className="heading_main" style={{ fontSize: "1.1rem" }}>
+            @{username}
+          </p>
+        </section>
+      </Link>
       <section
         class={`${styles.parent} ${styles[active("images")]}`}
         onClick={() =>
@@ -95,7 +98,7 @@ const Sidebar = ({ loadUser, username, avatar }) => {
         <section
           class={`${styles.option} ${styles[url === "/chat" ? "active" : ""]}`}
         >
-          <FaCommentDots /> Chat Rooms
+          <FaCommentDots /> Tragency Town
         </section>
       </section>
       <section className={styles.parent} onClick={() => handleClick(`/market`)}>
@@ -109,5 +112,6 @@ const Sidebar = ({ loadUser, username, avatar }) => {
 const mapStateToProps = (state) => ({
   username: state.auth.user.username,
   avatar: state.auth.user.avatar,
+  id: state.auth.user._id,
 });
 export default connect(mapStateToProps, { loadUser })(Sidebar);

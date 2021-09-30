@@ -63,7 +63,7 @@ const ChatRoom = ({
   ));
   const renderedActive = active.map((user) => (
     <>
-      <Link to={`user/${user.userId}`}>
+      <Link to={`profile/${user.userId}`}>
         <section style={{ position: "relative" }}>
           <img src={user.avatar} alt="Profile" className={`profile-photo`} />
           <p
@@ -84,7 +84,7 @@ const ChatRoom = ({
       <ToastContainer></ToastContainer>
       <section className={`container ${styles.container}`}>
         <section className={styles.sidebar}>
-          <h1 className="heading_main">Chat Rooms</h1>
+          <h1 className="heading_main">Villages</h1>
           {renderedChatRooms}
           <Link to="create/room">
             <button
@@ -97,7 +97,7 @@ const ChatRoom = ({
                 borderRadius: "1rem",
               }}
             >
-              Create A Channel
+              Create A Village
             </button>
           </Link>
           <hr style={{ width: "100%" }} />
@@ -110,7 +110,7 @@ const ChatRoom = ({
             <MessageInput socket={socket} id={roomId} />
           </section>
         ) : (
-          <section className="container">Please Select a chat room</section>
+          <section className="container">Please Select a village</section>
         )}
         <section className={styles.sidebar}>
           <h1 className="heading_main">Online Users</h1>

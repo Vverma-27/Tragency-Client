@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import { isEqual } from "lodash";
 import { FaBook } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { ToastContainer } from "react-toastify";
@@ -7,25 +8,33 @@ import { loadDiary, updateDiary } from "../actions";
 import styles from "../styles/Diary.module.css";
 
 const MainDiary = () => {
-  const daysDiary = useSelector(({ diary }) => diary);
+  const daysDiary = useSelector(({ diary }) => diary, isEqual);
+  // console.log(new Date().toISOString().substr(0, 10));
   const dispatch = useDispatch();
-  const getDiary = (date) => dispatch(loadDiary(date));
+  const getDiary = useCallback((date) => dispatch(loadDiary(date)), [dispatch]);
   const uploadDiary = (diary) => dispatch(updateDiary(diary));
   const [diary, setDiary] = useState(daysDiary.content || "");
   const [title, setTitle] = useState(
     daysDiary.title || "Enter Your Title Here"
   );
   const [file, setFile] = useState("");
-  const [date, setDate] = useState(daysDiary.published || "");
+  const [date, setDate] = useState(
+    daysDiary.published?.substr(0, 10) || new Date().toISOString().substr(0, 10)
+  );
+  useEffect(() => {
+    getDiary(new Date().toISOString().substr(0, 10));
+  }, [getDiary]);
   useEffect(() => {
     setDiary(daysDiary.content || "");
     setTitle(daysDiary.title || "Enter Your Title Here");
-    setDate(daysDiary.published || "");
+    setDate(
+      daysDiary.published?.substr(0, 10) ||
+        new Date().toISOString().substr(0, 10)
+    );
   }, [daysDiary]);
   const handleSubmit = (e) => {
     e.preventDefault();
     const diaryobj = { content: diary, published: date, title };
-    console.log(diaryobj);
     uploadDiary(diaryobj);
   };
   const showFile = async (e) => {

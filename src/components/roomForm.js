@@ -1,29 +1,29 @@
 import React, { useState } from "react";
 import { FaImage } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { createRoom, setAlert } from "../actions";
 import styles from "../styles/Post.module.css";
 
 const RoomForm = () => {
   const [title, setTitle] = useState("");
-  const [image, setImage] = useState([]);
+  const [image, setImage] = useState();
   const [imagePath, setImagePath] = useState("");
-  const [maxLimit, setMaxLimit] = useState("");
+  const [maxLimit, setMaxLimit] = useState(20);
   const [description, setDescription] = useState("");
-  //   const dispatch = useDispatch();
-  //   const post = (formValues) => {
-  //     // console.log(formValues);
-  //     dispatch(uploadPost(formValues));
-  //   };
+  const dispatch = useDispatch();
+  const formRoom = (formValues) => {
+    dispatch(createRoom(formValues));
+  };
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(image);
-    // const formData = new FormData();
-    // formData.append("location", location);
-    // formData.append("content", content);
-    // formData.append("files", files);
-    // formData.append("type", type);
-    // formData.append("title", title);
-    // formData.append("tags", travelTags);
-    // post(formData);
+    if (maxLimit > 20)
+      dispatch(setAlert("Max Limit cannot be above 20", "error"));
+    const formValues = new FormData();
+    formValues.append("title", title);
+    formValues.append("maxLimit", maxLimit);
+    formValues.append("description", description);
+    formValues.append("file", image);
+    formRoom(formValues);
   };
   return (
     <form id={styles.form} onSubmit={onSubmit} encType="multipart/form-data">
@@ -40,6 +40,7 @@ const RoomForm = () => {
           name="title"
           class={styles.input}
           value={title}
+          required={true}
           onChange={(e) => setTitle(e.target.value)}
         />
       </section>
@@ -57,6 +58,8 @@ const RoomForm = () => {
           name="maxLimit"
           class={styles.input}
           value={maxLimit}
+          max={20}
+          type="number"
           onChange={(e) => setMaxLimit(e.target.value)}
         />
       </section>
@@ -72,7 +75,12 @@ const RoomForm = () => {
         >
           Upload Group image:
         </label>
-        <section>
+        <section
+          style={{
+            top: "1vh",
+            left: "16vw",
+          }}
+        >
           <FaImage />
           {!imagePath ? `No Image Chosen` : imagePath}
         </section>
@@ -87,7 +95,7 @@ const RoomForm = () => {
           onChange={(e) => {
             setImagePath(e.target.value);
             // console.log(e.target.files);
-            setImage(...e.target.files[0]);
+            setImage(e.target.files[0]);
           }}
         />
       </section>
@@ -103,8 +111,8 @@ const RoomForm = () => {
         <textarea
           required={true}
           name="description"
-          placeholder="Ohh I had the best day today!"
-          class={styles.input}
+          placeholder="A chat room to create awareness about destinations in Goa"
+          class={`desc ${styles.input}`}
           cols="30"
           rows="3"
           value={description}

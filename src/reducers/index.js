@@ -4,6 +4,7 @@ import authReducer from "./authReducer";
 import postReducer from "./postsReducer";
 import chatRoomReducer from "./chatRoomReducer";
 import diaryReducer from "./diaryReducer";
+import profileReducer from "./profileReducer";
 
 export default combineReducers({
   alerts: alertReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
   posts: postReducer,
   chatRooms: chatRoomReducer,
   diary: diaryReducer,
+  profile: profileReducer,
 });

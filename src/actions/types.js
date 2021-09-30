@@ -40,4 +40,7 @@ export const LOAD_ROOM = "LOAD_ROOM";
 export const POST_MESSAGE = "POST_MESSAGE";
 export const LOAD_DIARY = "LOAD_DIARY";
 export const UPDATE_DIARY = "UPDATE_DIARY";
+export const ERROR_DIARY = "ERROR_DIARY";
+export const LOAD_PROFILE = "LOAD_PROFILE";
+export const UPDATE_PROFILE = "UPDATE_PROFILE";
 // export const CREATE_CHAT_ROOM = "CREATE_CHAT_ROOM";

@@ -1,155 +1,160 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700;800&display=swap");
 html {
-  font-size: 4px;
+    font-size: 4px;
 }
 
 p {
-  display: inline-block;
+    display: inline-block;
 }
 
 html,
 body,
 #root {
-  margin: 0;
-  overflow-x: hidden;
-  font-family: "Open Sans", sans-serif;
-  height: 100%;
-  color: #000;
+    margin: 0;
+    overflow-x: hidden;
+    font-family: "Open Sans", sans-serif;
+    height: 100%;
+    color: #000;
 }
 
 button {
-  background: none;
-  border: none;
+    background: none;
+    border: none;
 }
 
 body {
-  background: #eff6fa;
+    background: #eff6fa;
 }
 
 .logo {
-  height: 5rem;
-  width: 14rem;
+    height: 5rem;
+    width: 14rem;
 }
 
 a,
 a:hover,
 a:focus,
 a:active {
-  text-decoration: none;
-  color: inherit;
+    text-decoration: none;
+    color: inherit;
 }
 
 .heading_main {
-  font-weight: bolder;
-  font-size: 1.7rem;
+    font-weight: bolder;
+    font-size: 1.7rem;
 }
 
 .main {
-  padding: 2vh 2vw;
-  /* width: 65vw; */
-  /* transform: translateX(-50%); */
-  margin: 0 0 0 0;
-  display: flex;
-  justify-content: flex-end;
-  align-items: baseline;
-  position: relative;
+    padding: 2vh 2vw;
+    /* width: 65vw; */
+    /* transform: translateX(-50%); */
+    margin: 0 0 0 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
+    position: relative;
 }
 
 .note {
-  font-size: 1rem;
-  font-weight: 300;
+    font-size: 1rem;
+    font-weight: 300;
 }
 
 .note.top {
-  position: absolute;
-  right: 0.6vw;
-  top: 0.1vh;
+    position: absolute;
+    right: 0.6vw;
+    top: 0.1vh;
 }
 
 .note.bottom {
-  position: absolute;
-  right: 0.6vw;
-  bottom: 0.1vh;
+    position: absolute;
+    right: 0.6vw;
+    bottom: 0.1vh;
 }
 
 .sub-headings {
-  font-weight: 400;
-  font-size: 1.7rem;
+    font-weight: 400;
+    font-size: 1.7rem;
 }
 
 .container {
-  background: #fafafa;
-  border: 1px solid;
-  border-radius: 1.1rem;
-  padding: 0.5vh 1vw;
-  position: relative;
-  color: #000;
+    background: #fafafa;
+    border: 1px solid;
+    border-radius: 1.1rem;
+    padding: 0.5vh 1vw;
+    position: relative;
+    color: #000;
 }
 
 .out_container {
-  width: 92vw;
+    width: 92vw;
 }
 
 .post-info {
-  margin-top: 1vh;
+    margin-top: 1vh;
 }
 
 .profile-photo {
-  border-radius: 50%;
-  width: 5rem;
-  height: 5rem;
-  display: inline-block;
-  margin: -1.5rem 1rem;
+    border-radius: 50%;
+    width: 5rem;
+    height: 5rem;
+    display: inline-block;
+    margin: -1.5rem 1rem;
 }
 
 .post {
-  margin-top: 2vh;
-  position: relative;
+    margin-top: 2vh;
+    position: relative;
 }
 
 .delete_button {
-  position: absolute;
-  font-size: 2.5rem;
-  right: 2vw;
-  color: hsla(0, 100%, 50%, 0.7);
-  top: 3vh;
+    position: absolute;
+    font-size: 2.5rem;
+    right: 2vw;
+    color: hsla(0, 100%, 50%, 0.7);
+    top: 3vh;
 }
 
 .post-media {
-  width: 100%;
-  border-radius: 1rem;
+    width: 100%;
+    border-radius: 1rem;
 }
 
 .likes_active {
-  color: blue;
-  font-weight: 600;
+    color: blue;
+    font-weight: 600;
 }
 
 .extras {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .blue {
-  color: blue !important;
-  font-weight: 800;
+    color: blue !important;
+    font-weight: 800;
 }
 
 textarea {
-  background: #d8e1fe !important;
-  color: #000 !important;
-  height: 5vh !important;
-  font-size: 2rem;
+    background: #d8e1fe !important;
+    color: #000 !important;
+    height: 5vh !important;
+    font-size: 2rem;
+}
+
+textarea.desc {
+    height: 15vh !important;
+    width: 40vw !important;
 }
 
 button[type="submit"] {
-  background: #000 !important;
-  color: #fff !important;
+    background: #000 !important;
+    color: #fff !important;
 }
 
 button[type="submit"].buttonSubmit {
-  background: rgba(108, 99, 255, 0.7) !important;
+    background: rgba(108, 99, 255, 0.7) !important;
 }
 
 textarea.note.diaryArea {
@@ -157,54 +162,54 @@ textarea.note.diaryArea {
 }
 
 @media screen and (min-width: 500px) {
-  html {
-    font-size: 5px;
-  }
+    html {
+        font-size: 5px;
+    }
 }
 
 @media screen and (min-width: 650px) {
-  html {
-    font-size: 7px;
-  }
+    html {
+        font-size: 7px;
+    }
 }
 
 @media only screen and (min-width: 791px) {
-  .out_container {
-    width: 75%;
-  }
-  .main {
-    padding: 2vh 3vw;
-    justify-content: space-around;
-    margin: 0 0 0 16rem;
-  }
+    .out_container {
+        width: 75%;
+    }
+    .main {
+        padding: 2vh 3vw;
+        justify-content: space-around;
+        margin: 0 0 0 16rem;
+    }
 }
 
 @media only screen and (min-width: 1024px) {
-  html {
-    font-size: 8px !important;
-  }
+    html {
+        font-size: 8px !important;
+    }
 }
 
 @media only screen and (min-width: 1100px) {
-  html {
-    font-size: 9px !important;
-  }
+    html {
+        font-size: 9px !important;
+    }
 }
 
 @media only screen and (min-width: 1440px) {
-  html {
-    font-size: 12px !important;
-  }
+    html {
+        font-size: 12px !important;
+    }
 }
 
 @media only screen and (min-width: 1700px) {
-  html {
-    font-size: 17px !important;
-  }
+    html {
+        font-size: 17px !important;
+    }
 }
 
 @media only screen and (min-width: 2300px) {
-  html {
-    font-size: 25px !important;
-  }
+    html {
+        font-size: 25px !important;
+    }
 }
