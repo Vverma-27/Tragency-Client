@@ -22,25 +22,28 @@ const Sidebar = ({ loadUser, username, avatar, id }) => {
   const active = (string) =>
     t ? (t.toLowerCase() === string ? "active" : "") : "";
   const handleClick = (url) => history.push(url);
+  const loggedIn = localStorage.getItem("isAuthenticated");
   useEffect(() => {
-    loadUser();
-  }, [loadUser]);
+    if (loggedIn !== "false") loadUser();
+  }, [loadUser, loggedIn]);
   return (
     <aside id={styles.sidebar}>
-      <Link to={`profile/${id}`}>
-        {" "}
-        <section id={styles.user_info}>
-          <img
-            src={avatar}
-            alt="Profile"
-            className="profile-photo"
-            style={{ margin: "0.5rem" }}
-          />
-          <p className="heading_main" style={{ fontSize: "1.1rem" }}>
-            @{username}
-          </p>
-        </section>
-      </Link>
+      {loggedIn === "true" && (
+        <Link to={`profile/${id}`}>
+          {" "}
+          <section id={styles.user_info}>
+            <img
+              src={avatar}
+              alt="Profile"
+              className="profile-photo"
+              style={{ margin: "0.5rem" }}
+            />
+            <p className="heading_main" style={{ fontSize: "1.1rem" }}>
+              @{username}
+            </p>
+          </section>
+        </Link>
+      )}
       <section
         class={`${styles.parent} ${styles[active("images")]}`}
         onClick={() =>

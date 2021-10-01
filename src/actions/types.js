@@ -43,4 +43,7 @@ export const UPDATE_DIARY = "UPDATE_DIARY";
 export const ERROR_DIARY = "ERROR_DIARY";
 export const LOAD_PROFILE = "LOAD_PROFILE";
 export const UPDATE_PROFILE = "UPDATE_PROFILE";
+export const SINGLE_POST = "SINGLE_POST";
+export const SINGLE_POST_FAIL = "SINGLE_POST_FAIL";
+
 // export const CREATE_CHAT_ROOM = "CREATE_CHAT_ROOM";

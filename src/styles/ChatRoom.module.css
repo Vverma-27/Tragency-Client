@@ -50,13 +50,16 @@
 
 .usersContainer {
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .dp {
     /* height: 5vh;
     width: 5vh; */
     position: absolute;
-    top: 0;
+    /* top: 1vh; */
 }
 
 .dp:first-of-type {

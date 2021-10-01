@@ -1,17 +1,22 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { isEqual } from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 import {
   FaComment,
-  FaExclamationCircle,
+  FaEllipsisV,
   FaGlobe,
   FaPlaneDeparture,
-  // FaTrash,
-  FaTrashAlt,
 } from "react-icons/fa";
 import Carousel from "./carousel";
-import { deletePost, likePost, unlikePost, reportPost } from "../actions";
+import {
+  deletePost,
+  likePost,
+  unlikePost,
+  reportPost,
+  setAlert,
+} from "../actions";
+import ShareModal from "./shareModal";
 // import Image1 from "../images/image1.jpg";
 // import video from "../videos/Video.mp4";
 
@@ -29,6 +34,16 @@ const Post = ({
   // const [comment, setComment] = useState("");
   const loggedInUserId = useSelector((state) => state.auth.user._id, isEqual);
   // console.log(loggedInUserId);
+  const loggedIn = useSelector((state) => state.auth.isAuthenticated, isEqual);
+  useEffect(() => {
+    const func = () => setShow(false);
+    document.querySelector("#root").addEventListener("click", func, true);
+    return () => {
+      document.querySelector("#root").removeEventListener("click", func, true);
+    };
+  }, []);
+  const [show, setShow] = useState(false);
+  const [showOptions, setShowOptions] = useState(false);
   const dispatch = useDispatch();
   if (post.content.length === 0) return null;
   const liked =
@@ -38,12 +53,7 @@ const Post = ({
     if (!liked) dispatch(likePost(id));
     else dispatch(unlikePost(id));
   };
-  // const addComment = (id) => {
-  //   // console.log(id);
-  //   dispatch(postComment(id, comment));
-  // };
   const postReport = (id) => {
-    // console.log(id);
     dispatch(reportPost(id));
   };
   const removePost = (id) => {
@@ -53,8 +63,6 @@ const Post = ({
       setPage(page + 1);
     }
   };
-  // console.log(post.likes);
-  // console.log(post.user.username + " " + post.user.avatar);
   const renderedPost = () => {
     switch (t) {
       case "images":
@@ -88,16 +96,65 @@ const Post = ({
   };
   return (
     <section class="post container">
-      {post.user._id === loggedInUserId ? (
-        <i
-          class="delete_button"
-          onClick={() => {
-            removePost(post._id);
-          }}
-        >
-          <FaTrashAlt />
+      {loggedIn && (
+        <i class="options_button" onClick={() => setShow(true)}>
+          <FaEllipsisV />
+          {show && (
+            <ul
+              className="options_list"
+              style={{
+                listStyle: "none",
+                fontStyle: "normal",
+                background: "white",
+                borderRadius: "0.3rem",
+                position: "absolute",
+                top: "2vh",
+                padding: "1vh 2vw",
+                right: "0",
+                width: "max-content",
+                boxShadow: "rgb(0 0 0) 0.1rem 0.2rem 0.9rem",
+              }}
+            >
+              <li
+                className="sub-headings"
+                onClickCapture={() => {
+                  console.log(showOptions);
+                  setShowOptions(true);
+                  setShow(false);
+                }}
+              >
+                Share
+              </li>
+              <hr />
+              {loggedInUserId === post.user._id && (
+                <>
+                  <li
+                    className="sub-headings"
+                    onClick={() => {
+                      removePost(post._id);
+                      setShow(false);
+                    }}
+                  >
+                    Delete
+                  </li>
+                  <hr />
+                </>
+              )}
+              {
+                <li
+                  className="sub-headings"
+                  onClick={() => {
+                    postReport(post._id);
+                    setShow(false);
+                  }}
+                >
+                  Report as offensive
+                </li>
+              }
+            </ul>
+          )}
         </i>
-      ) : null}
+      )}
       <Link to={`profile/${post.user._id}`}>
         <section className="post-info">
           <img src={post.user.avatar} alt="Profile" className="profile-photo" />
@@ -140,17 +197,23 @@ const Post = ({
             </span>
           </Link>
         </p>
-        <p
+        {/* <p
           className="note"
           style={{ fontSize: "1.4rem" }}
-          onClick={() => {
-            postReport(post._id);
-          }}
         >
           <FaExclamationCircle />
           Report As Offensive
-        </p>
+        </p> */}
       </section>
+      {/* {showOptions ? "hello i am " : ""} */}
+      {showOptions && (
+        <ShareModal
+          setActive={setShowOptions}
+          caption={post.title}
+          id={post._id}
+          tags={post.tags}
+        />
+      )}
       {t !== "blogs" ? <p className="sub-headings">{post.title}</p> : ""}
       <br />
       <p className="sub-headings">

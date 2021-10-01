@@ -1,5 +1,12 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { FaBook, FaCameraRetro, FaPlusSquare, FaVideo } from "react-icons/fa";
+import {
+  FaBook,
+  FaCameraRetro,
+  FaCommentDots,
+  FaPlusSquare,
+  FaUser,
+  FaVideo,
+} from "react-icons/fa";
 // import { useBottomScrollListener } from "react-bottom-scroll-listener";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
@@ -17,9 +24,11 @@ const Feed = ({
   getInfinitePosts,
   postsLoading,
   posts: { posts, loading, hasMore },
+  user,
 }) => {
   const [page, setPage] = useState(1);
   const observer = useRef();
+  const isLoggedin = localStorage.getItem("isAuthenticated") === "true";
   const query = useQuery();
   const t = !query.get("type") ? "images" : query.get("type");
   const postCallbackRef = useCallback(
@@ -129,17 +138,36 @@ const Feed = ({
             </Link>
             <Link to="post?type=vlogs">
               <h2 class="sub-headings" style={{ textTransform: "capitalize" }}>
-                <FaVideo /> Post a Vlog
+                <FaVideo /> Post Vlogs
               </h2>
             </Link>
             <Link to="post?type=blogs">
               <h2 class="sub-headings" style={{ textTransform: "capitalize" }}>
-                <FaPlusSquare /> Post a Blog
+                <FaPlusSquare /> Post Blogs
               </h2>
             </Link>
+            {window.innerWidth < 790 && isLoggedin && (
+              <Link to={`/profile/${user}`}>
+                <h2
+                  class="sub-headings"
+                  style={{
+                    textTransform: "capitalize",
+                    color: "rgba(108, 99, 255, 1)",
+                  }}
+                >
+                  <FaUser />
+                  Profile Page
+                </h2>
+              </Link>
+            )}
             <Link to="/diary">
               <h2 class="sub-headings" style={{ textTransform: "capitalize" }}>
                 <FaBook /> Edit Diary
+              </h2>
+            </Link>
+            <Link to="/chat">
+              <h2 class="sub-headings" style={{ textTransform: "capitalize" }}>
+                <FaCommentDots /> Tragency Town
               </h2>
             </Link>
           </section>
@@ -151,9 +179,9 @@ const Feed = ({
   );
 };
 
-const mapStateToProps = ({ posts }) => {
+const mapStateToProps = ({ posts, auth }) => {
   // console.log(posts);
-  return { posts };
+  return { posts, user: auth.user._id };
 };
 
 export default connect(mapStateToProps, {

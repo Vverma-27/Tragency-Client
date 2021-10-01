@@ -60,7 +60,8 @@ const MessageInput = ({ socket, id }) => {
           borderRadius: "0.3rem",
           background: "#fff",
           width: "60%",
-          height: "10vh",
+          fontSize: "1.6rem",
+          padding: "1vh 2vw",
         }}
       />
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

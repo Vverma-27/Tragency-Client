@@ -6,6 +6,17 @@ import styles from "../styles/ChatRoom.module.css";
 
 const ChatInformation = () => {
   const room = useSelector((state) => state.chatRooms.room);
+  const renderedProfilePhotos = room.users?.map((user, i) => (
+    <section className={styles.dp} key={i}>
+      <Link to={`profile/${user._id}`}>
+        <img
+          src={room.users ? user.avatar : ""}
+          alt="Profile"
+          className={`profile-photo`}
+        />
+      </Link>
+    </section>
+  ));
   return (
     <>
       <section className={styles.chatBox__headingContainer}>
@@ -32,21 +43,7 @@ const ChatInformation = () => {
           </h1>
         </section>
         <section className={styles.usersContainer}>
-          <img
-            src={room.users ? room.users[0].avatar : ""}
-            alt="Profile"
-            className={`profile-photo ${styles.dp}`}
-          />
-          <img
-            src={room.users ? room.users[1].avatar : ""}
-            alt="Profile"
-            className={`profile-photo ${styles.dp}`}
-          />
-          <img
-            src={room.users ? room.users[2].avatar : ""}
-            alt="Profile"
-            className={`profile-photo ${styles.dp}`}
-          />
+          {renderedProfilePhotos}
           <Link>
             <p className="note blue" style={{ fontSize: "0.8rem" }}>
               See All Users...

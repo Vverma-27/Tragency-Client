@@ -46,17 +46,27 @@ const ChatRoom = ({
   const renderedChatRooms = chatRooms.rooms.map((room) => (
     <>
       <Link to={`?room=${room._id}`}>
-        <p
-          className="sub-headings"
+        <section
           style={{
-            fontSize: "1rem",
-            fontWeight: "600",
-            textTransform: "capitalize",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "flex-start",
           }}
         >
-          {room.title}
-        </p>
+          <img src={room.profileImage} alt="" className="profile-photo" />
+          <p
+            className="sub-headings"
+            style={{
+              fontSize: "1rem",
+              fontWeight: "600",
+              textTransform: "capitalize",
+            }}
+          >
+            {room.title}
+          </p>
+        </section>
       </Link>
+      <br />
       <hr style={{ width: "100%" }} />
       <br />
     </>
@@ -64,7 +74,14 @@ const ChatRoom = ({
   const renderedActive = active.map((user) => (
     <>
       <Link to={`profile/${user.userId}`}>
-        <section style={{ position: "relative" }}>
+        <section
+          style={{
+            position: "relative",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "flex-start",
+          }}
+        >
           <img src={user.avatar} alt="Profile" className={`profile-photo`} />
           <p
             className="sub-headings"
@@ -74,6 +91,7 @@ const ChatRoom = ({
           </p>
         </section>
       </Link>
+      <br />
       <hr style={{ width: "100%" }} />
       <br />
     </>

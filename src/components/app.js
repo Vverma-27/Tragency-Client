@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";
-import { connect } from "react-redux";
-import { Router, Switch, Route } from "react-router-dom";
-// import { useBottomScrollListener } from "react-bottom-scroll-listener";
-import { loadUser } from "../actions";
+import { Router, Switch, Route, Redirect } from "react-router-dom";
+import ProtectedRoute from "./protectedRoute";
 import Header from "./header";
 import Footer from "./footer";
 import Search from "./searchResults";
@@ -19,17 +17,17 @@ import SignIn from "./signIn";
 import SignUp from "./signUp";
 import ChatRoom from "./chatRoom";
 import CreateRoom from "./createRoom";
+import SinglePost from "./singlePost";
 
-const App = ({ loadUser, isAuthenticated }) => {
+const App = () => {
   useEffect(() => {
-    loadUser();
-    if (history.location.pathname.split("/")[1] !== "auth") {
-      if (!isAuthenticated) history.push("/auth/signin");
+    const datePassed =
+      Date.parse(new Date()) - Date.parse(localStorage.getItem("expiryDate")) >
+      0;
+    if (datePassed) {
+      localStorage.setItem("isAuthenticated", "false");
     }
-    if (history.location.pathname.split("/")[1] === "auth" && isAuthenticated) {
-      history.push("/feed");
-    }
-  }, [loadUser, isAuthenticated]);
+  }, []);
   return (
     <section style={{ height: "100%" }}>
       <Router history={history}>
@@ -48,7 +46,8 @@ const App = ({ loadUser, isAuthenticated }) => {
               </>
             )}
           />
-          <Route
+          <Route path={`/post/:id`} exact component={() => <SinglePost />} />
+          <ProtectedRoute
             path={`/comments/:id`}
             exact
             component={() => (
@@ -70,7 +69,7 @@ const App = ({ loadUser, isAuthenticated }) => {
               </>
             )}
           />
-          <Route
+          <ProtectedRoute
             path={`/create/room`}
             exact
             component={() => (
@@ -81,7 +80,7 @@ const App = ({ loadUser, isAuthenticated }) => {
               </>
             )}
           />
-          <Route
+          <ProtectedRoute
             path={`/results`}
             exact
             component={() => (
@@ -92,7 +91,7 @@ const App = ({ loadUser, isAuthenticated }) => {
               </>
             )}
           />
-          <Route
+          <ProtectedRoute
             path={`/post`}
             exact
             component={() => (
@@ -103,7 +102,7 @@ const App = ({ loadUser, isAuthenticated }) => {
               </>
             )}
           />
-          <Route
+          <ProtectedRoute
             path={`/diary`}
             exact
             component={() => (
@@ -114,7 +113,7 @@ const App = ({ loadUser, isAuthenticated }) => {
               </>
             )}
           />
-          <Route
+          <ProtectedRoute
             path={`/market`}
             exact
             component={() => (
@@ -125,18 +124,7 @@ const App = ({ loadUser, isAuthenticated }) => {
               </>
             )}
           />
-          {/* <Route
-            path={`/diary`}
-            exact
-            component={() => (
-              <>
-                <Header />
-                <Coming />
-                <Footer />
-              </>
-            )}
-          /> */}
-          <Route
+          <ProtectedRoute
             path={`/chat`}
             exact
             component={() => (
@@ -147,12 +135,10 @@ const App = ({ loadUser, isAuthenticated }) => {
               </>
             )}
           />
+          <Route path="*" exact component={() => <Redirect to="/feed" />} />
         </Switch>
       </Router>
     </section>
   );
 };
-const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
-});
-export default connect(mapStateToProps, { loadUser })(App);
+export default App;

@@ -49,7 +49,7 @@ const Messages = ({ socket, id, msgs = [], loadRoom, loggedInUserId }) => {
     <>
       <section
         className={styles.chats__container}
-        style={{ height: "60vh", overflowY: "scroll", overflowX: "hidden" }}
+        style={{ height: "50vh", overflowY: "scroll", overflowX: "hidden" }}
       >
         {renderedMessages}
         {/* <div ref={divRef}></div> */}

@@ -1,9 +1,10 @@
 import React, { useRef, useState, useEffect } from "react";
 import { connect } from "react-redux";
 import styles from "../styles/Profile.module.css";
-import { FaCamera, FaImage, FaVideo, FaTh } from "react-icons/fa";
+import { FaCamera, FaImage, FaVideo, FaTh, FaBorderAll } from "react-icons/fa";
 import { loadProfile, updateProfile } from "../actions";
 import history from "../history";
+import PostModal from "./postModal";
 
 const Profile = ({ profile, loggedInUserId, loadProfile, updateProfile }) => {
   useEffect(() => {
@@ -15,11 +16,15 @@ const Profile = ({ profile, loggedInUserId, loadProfile, updateProfile }) => {
   }, [loadProfile]);
   // console.log(profile);
   const isLoggedInUser = profile.user?._id === loggedInUserId;
-  const [username, setUsername] = useState(profile.user?.username);
+  const [username, setUsername] = useState(
+    profile.user?.username || "username"
+  );
   const [image, setImage] = useState(profile.user?.avatar);
   const [showImage, setShowImage] = useState(null);
-  const [bio, setBio] = useState(profile.bio);
+  const [bio, setBio] = useState(profile.bio || "");
   const [type, setType] = useState("images");
+  const [active, setActive] = useState(false);
+  const [post, setPost] = useState(null);
   useEffect(() => {
     setUsername(profile.user?.username);
     setBio(profile.bio);
@@ -65,13 +70,44 @@ const Profile = ({ profile, loggedInUserId, loadProfile, updateProfile }) => {
   const renderedPosts = profile.posts
     ?.filter((post) => post.type === type)
     .map((post, i) => (
-      <div className={styles["post__img--box"]} key={i}>
+      <div
+        className={styles["post__img--box"]}
+        key={i}
+        onClick={() => {
+          setPost(post);
+          setActive(true);
+        }}
+      >
         {type === "images" ? (
-          <img
-            className={styles["post__img"]}
-            src={`${post.content[0]}`}
-            alt="post-img"
-          />
+          <span
+            style={{
+              position: "relative",
+              height: "100%",
+              width: "100%",
+              display: "inline-block",
+              background: "#000",
+            }}
+          >
+            <img
+              className={styles["post__img"]}
+              src={`${post.content[0]}`}
+              alt="post-img"
+            />
+            {post.content.length > 1 && (
+              <i
+                style={{
+                  position: "absolute",
+                  top: "1vh",
+                  right: "1vw",
+                  fontSize: "3rem",
+                  color: "white",
+                }}
+              >
+                {" "}
+                <FaBorderAll />{" "}
+              </i>
+            )}
+          </span>
         ) : type === "vlogs" ? (
           <video
             className={styles["post__img"]}
@@ -81,8 +117,8 @@ const Profile = ({ profile, loggedInUserId, loadProfile, updateProfile }) => {
           <p
             className="sub-headings"
             style={{
-              fontSize: "1.3rem",
-              lineHeight: "1.7rem",
+              fontSize: "1.6rem",
+              lineHeight: "2.7rem",
               whiteSpace: "break-spaces",
             }}
           >
@@ -137,6 +173,9 @@ const Profile = ({ profile, loggedInUserId, loadProfile, updateProfile }) => {
           <button id={styles["update__btn"]} type="submit">
             Update profile
           </button>
+        ) : null}
+        {active ? (
+          <PostModal t={type} post={post} setActive={setActive} />
         ) : null}
       </form>
       <div className={styles["post__container"]}>

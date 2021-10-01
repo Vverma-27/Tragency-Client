@@ -14,8 +14,10 @@ import {
   POSTS_LOADING,
   POSTS_REPORT_UPDATE_SUCCESS,
   POSTS_REPORT_UPDATE_FAIL,
+  SINGLE_POST,
+  SINGLE_POST_FAIL,
 } from "../actions/types";
-const initialState = { posts: [], loading: true, hasMore: true };
+const initialState = { posts: [], loading: true, hasMore: true, post: {} };
 const postsReducer = (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
@@ -86,6 +88,10 @@ const postsReducer = (state = initialState, action) => {
       return { ...state, loading: true, hasMore: false };
     case POSTS_LOADING:
       return { ...state, loading: true };
+    case SINGLE_POST:
+      return { ...state, post: payload };
+    case SINGLE_POST_FAIL:
+      return { ...state, post: {} };
     default:
       return state;
   }

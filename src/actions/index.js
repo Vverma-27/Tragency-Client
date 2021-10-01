@@ -34,6 +34,8 @@ import {
   ERROR_DIARY,
   LOAD_PROFILE,
   UPDATE_PROFILE,
+  SINGLE_POST,
+  SINGLE_POST_FAIL,
 } from "./types";
 import {
   auth,
@@ -75,7 +77,8 @@ export const logout = () => async (dispatch) => {
     await auth.post("/logout");
     dispatch(setAlert("Successfully logged out!", "success"));
     dispatch({ type: USER_LOGOUT_SUCCESS });
-    history.push("/auth/signin");
+    localStorage.setItem("isAuthenticated", "false");
+    // history.push("/auth/signin");
   } catch (e) {
     const errors = e.response.data.errors;
     errors.forEach((err) => dispatch(setAlert(err.msg, "error")));
@@ -89,6 +92,7 @@ export const signUp = (formValues) => async (dispatch) => {
     // console.log(token);
     dispatch(setAlert("Successfully signed up!", "success"));
     dispatch({ type: REGISTER_SUCCESS });
+    localStorage.setItem("isAuthenticated", "true");
     history.push("/feed");
   } catch (e) {
     // console.log(e.response, e.response.data.errors);
@@ -104,6 +108,11 @@ export const signin = (formValues) => async (dispatch) => {
     // console.log(token);
     dispatch(setAlert("Successfully logged in!", "success"));
     dispatch({ type: SIGNIN_SUCCESS });
+    localStorage.setItem("isAuthenticated", "true");
+    let dt = new Date();
+    dt.setDate(dt.getDate() + 2);
+    localStorage.setItem("expiryDate", dt);
+    console.log(localStorage.getItem("isAuthenticated"));
     history.push("/feed");
   } catch (e) {
     // console.log(e.response, e.response.data.errors);
@@ -137,13 +146,13 @@ export const getPost = (id) => async (dispatch) => {
     const {
       data: { post },
     } = await postsRoute.get(`/${id}`);
-    // console.log(posts);
-    dispatch({ type: POSTS_LOAD_SUCCESS, payload: [post] });
+    // console.log(post);
+    dispatch({ type: SINGLE_POST, payload: post });
   } catch (e) {
     console.log(e.response);
     const errors = e.response.data.errors;
     errors.forEach((err) => dispatch(setAlert(err.msg, "error")));
-    dispatch({ type: POSTS_LOAD_FAIL });
+    dispatch({ type: SINGLE_POST_FAIL });
   }
 };
 export const uploadPost = (formValues) => async (dispatch) => {
